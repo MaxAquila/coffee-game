@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "paths": {
+            "@assets/*" : ["./assets/*"],
+            //components
+            "@comp-app/*" : ["./components/app/*"],
+            "@comp-game/*" : ["./components/game/*"],
+            "@comp-main/*" : ["./components/main/*"],
+            //common
+            "@comm-enums/*" : ["./common/enums/*"]
+         }
+    }
+}
