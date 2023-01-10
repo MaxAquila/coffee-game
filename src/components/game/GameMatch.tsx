@@ -9,12 +9,10 @@ interface Props {
 
 export const GameMatch = ({ jolly, steps, updateStepsCallback }: Props) => {
     const lastInsertedStep = steps[0];
+    const isGameOver = lastInsertedStep.min == lastInsertedStep.max;
     const [newValue, setNewValue] = useState<number>(lastInsertedStep.min);
 
     const listSteps = steps.map((s) => <li key={`${s.min}─${s.max}`}>{`Min: ${s.min} ─ Max: ${s.max}`}</li>);
-    if (lastInsertedStep.min == lastInsertedStep.max) {
-        listSteps.unshift(<li key="GameOver" className="GameOver"><strong>!!! GAME OVER !!!</strong></li>);
-    }
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -26,8 +24,11 @@ export const GameMatch = ({ jolly, steps, updateStepsCallback }: Props) => {
     }
 
     const onClickNewValue = () => {
+        if (isGameOver) {
+            alert("!!! GAME OVER !!!\nStart a new game");
+            return;
+        }
         const oldSteps = steps.slice();
-        const lastInsertedStep = oldSteps[0];
         const newStep: matchStep = (newValue == jolly)
             ? { min: jolly, max: jolly }
             : (newValue < jolly)
@@ -58,12 +59,12 @@ export const GameMatch = ({ jolly, steps, updateStepsCallback }: Props) => {
                 <div className="col-md-6">
                     <form className="input-group mb-3" onSubmit={handleSubmit}>
                         <label className="input-group-text">New value:</label>
-                        <input className="form-control" type="number" value={newValue} onChange={handleChangeNewValue} />
-                        <button type="button" className="btn btn-primary" onClick={onClickNewValue}>Insert</button>
+                        <input className="form-control" type="number" value={newValue} onChange={handleChangeNewValue} disabled={isGameOver}/>
+                        <button type="button" className="btn btn-primary" onClick={onClickNewValue} disabled={isGameOver}>Insert</button>
                     </form>
                 </div>
             </div>
-            <label className="GameOver"><strong>!!! GAME OVER !!!</strong></label>
+            {isGameOver ? <label className="GameOver"><strong>!!! GAME OVER !!!</strong></label> : <></>}
             <div className="scrollable">
                 <ul className="list-unstyled">{listSteps}</ul>
             </div>
