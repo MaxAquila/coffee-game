@@ -8,7 +8,9 @@
             "@comp-game/*" : ["./components/game/*"],
             "@comp-main/*" : ["./components/main/*"],
             //common
-            "@comm-enums/*" : ["./common/enums/*"]
+            "@comm-enums/*" : ["./common/enums/*"],
+            "@comm-helpers/*" : ["./common/helpers/*"],
+            "@comm-interfaces/*" : ["./common/interfaces/*"]
          }
     }
 }

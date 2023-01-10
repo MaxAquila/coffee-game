@@ -1,7 +1,8 @@
 import logo from '@assets/cup512.png';
+import { enumGameState } from '@comm-enums/enumGameState';
 
 interface Props {
-  onClickNewGame: () => void
+  onClickNewGame: (gameState: enumGameState) => void;
 }
 
 export const AppHeader = ({ onClickNewGame }: Props) => {
@@ -14,9 +15,7 @@ export const AppHeader = ({ onClickNewGame }: Props) => {
       <p>
         🧐 <em>Find the number and lose the game!</em> 😰
       </p>
-      <button type="button" className="btn btn-secondary" onClick={onClickNewGame}>
-        🎮 Start a new game 🎮
-      </button>
+      <button type="button" className="btn btn-secondary" onClick={() => onClickNewGame(enumGameState.Play)}>🎮 Start a new game 🎮</button>
     </header>
   );
 };

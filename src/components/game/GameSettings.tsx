@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 
 interface IFormInput {
-    min: Number;
-    max: Number;
+    min: number;
+    max: number;
 }
 
 export const GameSettings = () => {
