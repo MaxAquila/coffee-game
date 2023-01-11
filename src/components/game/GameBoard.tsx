@@ -17,7 +17,6 @@ export const GameBoard = ({ gameState, steps, jolly, changeGameStateCallback, ch
             case enumGameState.Configure:
                 return <GameSettings />;
             case enumGameState.Play:
-                console.log("play");
                 return <GameMatch jolly={jolly} steps={steps} updateStepsCallback={changeStepsCallback}/>;
             case enumGameState.None:
             default:
