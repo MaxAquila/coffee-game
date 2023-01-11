@@ -6,8 +6,10 @@ interface IFormInput {
 }
 
 export const GameSettings = () => {
+    console.log("GameSettings");
     const { register, setValue, handleSubmit, formState: { errors } } = useForm<IFormInput>();
 
+    console.log("Rendering: Settings");
     return (
         <div className="row justify-content-center">
             <div className="col-10">
