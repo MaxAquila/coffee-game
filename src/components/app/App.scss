@@ -24,12 +24,10 @@ $primary-color: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  float: left;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: $primary-color;
-  width: 50%;
 }
 
 .App-link {
@@ -46,24 +44,31 @@ $primary-color: white;
   }
 }
 
-.App-aside {
-  float: right;
+.Board-game {
   background-color: $background-primary-color;
-  color: $primary-color;
   min-height: 100vh;
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: $primary-color;
+  padding:2%;
 
-  .top-buffer {
-    margin-top: 40px;
+  h1 {
+    margin-bottom: 40px;
+  }
+  
+  img {
+    height: 32pt;
+    width: 32pt;
   }
 
-  .scrollable {
-    max-height: 80vh;
-    overflow-y: auto;
+  .GameOver {
+    color: red;
+    margin-bottom: 10px;
   }
-}
 
-.GameOver {
-  color: red;
-  margin-bottom: 10px;
+  .btn-function {
+    margin-bottom: 5px;;
+  }
 }
