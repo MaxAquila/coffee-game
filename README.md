@@ -2,6 +2,8 @@
 
 This project was created to test the developing of a web app with react and related technologies.
 
+https://63bfc6b5fd64410065a8b524--dreamy-boba-d924ed.netlify.app/
+
 ### How the game works
 
 - Starting from a range of numbers (exclusives) you have to find the 'Jolly' one.
