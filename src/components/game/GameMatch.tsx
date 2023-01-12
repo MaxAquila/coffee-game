@@ -13,8 +13,9 @@ interface Props {
 export const GameMatch = ({ jolly, steps, updateStepsCallback, updateGameState }: Props) => {
     console.log("GameMatch");
     const lastInsertedStep = steps[0];
-    const isGameOver = lastInsertedStep.min == lastInsertedStep.max;
+    const isGameOver = lastInsertedStep.min === lastInsertedStep.max;
     const range: matchStep = { min: isGameOver ? jolly : Number(lastInsertedStep.min) + 1, max: isGameOver ? jolly : Number(lastInsertedStep.max) - 1 };
+    console.log(range);
     const [newValue, setNewValue] = useState<number>(range.min);
 
     const listSteps = steps.map((s) => <li key={`${s.min}─${s.max}`}>{`Min: ${s.min} ─ Max: ${s.max}`}</li>);
@@ -51,16 +52,16 @@ export const GameMatch = ({ jolly, steps, updateStepsCallback, updateGameState }
             return;
         }
         const oldSteps = steps.slice();
-        const newStep: matchStep = (newValue == jolly)
+        const newStep: matchStep = (newValue === jolly)
             ? { min: jolly, max: jolly }
             : (newValue < jolly)
                 ? { min: newValue, max: lastInsertedStep.max }
                 : { min: lastInsertedStep.min, max: newValue };
-        if (newStep.min != lastInsertedStep.min || newStep.max != lastInsertedStep.max) {
+        if (newStep.min !== lastInsertedStep.min || newStep.max !== lastInsertedStep.max) {
             oldSteps.unshift(newStep);
         }
         console.log("GameMatch/onClickNewValue: setNewValue");
-        setNewValue((newValue == newStep.min) ? Number(newStep.min) + 1 : Number(newStep.max) - 1);
+        setNewValue((newValue === newStep.min) ? Number(newStep.min) + 1 : Number(newStep.max) - 1);
         updateStepsCallback(oldSteps);
     };
 
