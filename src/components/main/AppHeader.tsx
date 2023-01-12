@@ -12,7 +12,7 @@ export const AppHeader = () => {
   return (
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
-      <h1>Coffee GameS</h1>
+      <h1>Coffee Game</h1>
       <p>🧐 <em>Find the number and lose the game!</em> 😰</p>
       <Link to="/game">
         <button type="button" className="btn btn-secondary" onClick={onClickStartGame}>🎮 Start a new game 🎮</button>
