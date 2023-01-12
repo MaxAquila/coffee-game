@@ -6,7 +6,7 @@ This project was created to test the developing of a web app with react and rela
 
 - Starting from a range of numbers (exclusives) you have to find the 'Jolly' one.
 - When you insert a new value, the range changes and the nearest limit is replaced by the new value.
-- If you find the 'Jolly' number, you have to pay for everyone's coffee.
+- If you find the 'Jolly' number, you have to pay for everyone's coffee 😄.
 
 ## Getting Started with Create React App
 
