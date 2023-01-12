@@ -28,7 +28,7 @@ export const GameMatch = ({ jolly, steps, updateStepsCallback, updateGameState }
     const handleChangeNewValue = (e: any) => {
         console.log("GameMatch/handleChangeNewValue")
         console.log("GameMatch/handleChangeNewValue: setNewValue");
-        setNewValue(e.target.value);
+        setNewValue(Number(e.target.value));
     };
 
     const onClickNewValue = () => {
