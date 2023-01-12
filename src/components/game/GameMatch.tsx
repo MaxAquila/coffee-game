@@ -15,7 +15,6 @@ export const GameMatch = ({ jolly, steps, updateStepsCallback, updateGameState }
     const lastInsertedStep = steps[0];
     const isGameOver = lastInsertedStep.min === lastInsertedStep.max;
     const range: matchStep = { min: isGameOver ? jolly : Number(lastInsertedStep.min) + 1, max: isGameOver ? jolly : Number(lastInsertedStep.max) - 1 };
-    console.log(range);
     const [newValue, setNewValue] = useState<number>(range.min);
 
     const listSteps = steps.map((s) => <li key={`${s.min}─${s.max}`}>{`Min: ${s.min} ─ Max: ${s.max}`}</li>);
