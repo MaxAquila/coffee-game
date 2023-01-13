@@ -1,5 +1,5 @@
-import { matchStep } from "@comm-interfaces/matchStep";
 import { useEffect, useState } from "react";
+import { matchStep } from "@comm-interfaces/matchStep";
 
 interface Props {
     range: matchStep;
