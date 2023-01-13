@@ -1,18 +1,17 @@
-import './App.scss';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppHeader } from '@comp-main/AppHeader';
-import { GameBoard } from '@comp-game/GameBoard';
+import '@comp-app/App.scss';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { navigation } from '@comm-consts/navigation';
+import { FrontPage } from '@comp-pages/FrontPage';
+import { GamePage } from '@comp-pages/GamePage';
 
 export function App() {
-  console.log("App");
-
-  console.log("Rendering: App");
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AppHeader />} />
-          <Route path="/game" element={<GameBoard />} />
+          <Route path={navigation.frontPage} element={<FrontPage />} />
+          <Route path={navigation.gamePage} element={<GamePage />} />
+          <Route path={navigation.default} element={<Navigate to={navigation.frontPage} replace />} />
         </Routes>
       </BrowserRouter>
     </div>

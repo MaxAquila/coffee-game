@@ -6,8 +6,10 @@
             //components
             "@comp-app/*" : ["./components/app/*"],
             "@comp-game/*" : ["./components/game/*"],
-            "@comp-main/*" : ["./components/main/*"],
+            "@comp-pages/*" : ["./components/pages/*"],
+            "@comp-settings/*" : ["./components/settings/*"],
             //common
+            "@comm-consts/*" : ["./common/consts/*"],
             "@comm-enums/*" : ["./common/enums/*"],
             "@comm-helpers/*" : ["./common/helpers/*"],
             "@comm-interfaces/*" : ["./common/interfaces/*"]
