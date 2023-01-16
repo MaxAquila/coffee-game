@@ -11,6 +11,7 @@ export const GamePage = () => {
     const range: matchStep = useMemo(() => {
         return { min: 0, max: 1000 };
     }, []);
+
     const [steps, setSteps] = useState<matchStep[]>([{ min: range.min, max: range.max }]);
     const [jolly, setJolly] = useState<number>(getRandomIntExclusive(range.min, range.max));
 
@@ -23,23 +24,21 @@ export const GamePage = () => {
     }, [range]);
 
     const onNextStep = useCallback((newValue: number) => {
-        const oldSteps = steps.slice();
         const newStep: matchStep = (newValue === jolly)
             ? { min: jolly, max: jolly }
             : (newValue < jolly)
                 ? { min: newValue, max: lastInsertedStep.max }
                 : { min: lastInsertedStep.min, max: newValue };
         if (newStep.min !== lastInsertedStep.min || newStep.max !== lastInsertedStep.max) {
-            oldSteps.unshift(newStep);
+            const newList = steps.slice();
+            newList.unshift(newStep);
+            setSteps(newList);
         }
-        setSteps(oldSteps);
-    }, [steps, jolly, lastInsertedStep]);
+    }, [steps]);
 
     useEffect(() => {
-        if (steps.length === 1) {
-            console.info(`Jolly : ${jolly}`);
-        }
-    }, [steps, jolly]);
+        console.info(`Jolly : ${jolly}`);
+    }, [jolly]);
 
     return (<>
         <div className="Board-game">
