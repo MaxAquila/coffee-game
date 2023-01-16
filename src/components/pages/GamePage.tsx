@@ -1,5 +1,5 @@
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getRandomIntExclusive } from '@comm-helpers/mathHelper';
 import { matchStep } from '@comm-interfaces/matchStep';
 import { GameHeader } from '@comp-game/GameHeader';
@@ -8,7 +8,9 @@ import { GameOver } from "@comp-game/GameOver";
 import { GameStepsList } from "@comp-game/GameStepsList";
 
 export const GamePage = () => {
-    const range: matchStep = { min: 0, max: 1000 };
+    const range: matchStep = useMemo(() => {
+        return { min: 0, max: 1000 };
+    }, []);
     const [steps, setSteps] = useState<matchStep[]>([{ min: range.min, max: range.max }]);
     const [jolly, setJolly] = useState<number>(getRandomIntExclusive(range.min, range.max));
 
@@ -18,7 +20,7 @@ export const GamePage = () => {
     const onClickNewGame = useCallback(() => {
         setSteps([{ min: range.min, max: range.max }]);
         setJolly(getRandomIntExclusive(range.min, range.max));
-    }, [range, jolly]);
+    }, [range]);
 
     const onNextStep = useCallback((newValue: number) => {
         const oldSteps = steps.slice();
@@ -31,7 +33,13 @@ export const GamePage = () => {
             oldSteps.unshift(newStep);
         }
         setSteps(oldSteps);
-    }, [range, jolly]);
+    }, [steps, jolly, lastInsertedStep]);
+
+    useEffect(() => {
+        if (steps.length === 1) {
+            console.info(`Jolly : ${jolly}`);
+        }
+    }, [steps, jolly]);
 
     return (<>
         <div className="Board-game">
