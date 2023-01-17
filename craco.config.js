@@ -9,6 +9,7 @@ module.exports = {
       "@comp-game": path.resolve(__dirname, "src/components/game/"),
       "@comp-pages": path.resolve(__dirname, "src/components/pages/"),
       "@comp-settings": path.resolve(__dirname, "src/components/settings/"),
+      "@comp-tests": path.resolve(__dirname, "src/components/tests/"),
       // common
       "@comm-consts": path.resolve(__dirname, "src/common/consts/"),
       "@comm-enums": path.resolve(__dirname, "src/common/enums/"),

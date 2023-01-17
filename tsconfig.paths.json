@@ -8,6 +8,7 @@
             "@comp-game/*" : ["./components/game/*"],
             "@comp-pages/*" : ["./components/pages/*"],
             "@comp-settings/*" : ["./components/settings/*"],
+            "@comp-tests/*" : ["./components/tests/*"],
             //common
             "@comm-consts/*" : ["./common/consts/*"],
             "@comm-enums/*" : ["./common/enums/*"],
