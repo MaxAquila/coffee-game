@@ -5,7 +5,9 @@ import { FrontPage } from '@comp-pages/FrontPage';
 import { GamePage } from '@comp-pages/GamePage';
 import { TesterPage } from '@comp-pages/TesterPage';
 
-export function App() {
+export function App() {  
+  console.info(`TesterPage [hidden]: ${navigation.testerPage}`);
+
   return (
     <div className="App">
       <BrowserRouter>
