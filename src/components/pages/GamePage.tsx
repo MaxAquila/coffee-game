@@ -1,4 +1,3 @@
-
 import { useRef } from 'react';
 import { GameHeader } from '@comp-game/GameHeader';
 import { GameMatch, refGameMatch } from '@comp-game/GameMatch';

@@ -5,6 +5,7 @@
             "@assets/*" : ["./assets/*"],
             //components
             "@comp-app/*" : ["./components/app/*"],
+            "@comp-common/*" : ["./components/common/*"],
             "@comp-game/*" : ["./components/game/*"],
             "@comp-pages/*" : ["./components/pages/*"],
             "@comp-settings/*" : ["./components/settings/*"],

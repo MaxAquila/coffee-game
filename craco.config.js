@@ -6,6 +6,7 @@ module.exports = {
       "@assets": path.resolve(__dirname, "src/assets/"),
       // components
       "@comp-app": path.resolve(__dirname, "src/components/app/"),
+      "@comp-common": path.resolve(__dirname, "src/components/common/"),
       "@comp-game": path.resolve(__dirname, "src/components/game/"),
       "@comp-pages": path.resolve(__dirname, "src/components/pages/"),
       "@comp-settings": path.resolve(__dirname, "src/components/settings/"),
