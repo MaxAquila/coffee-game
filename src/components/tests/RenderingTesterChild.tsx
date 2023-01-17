@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const ChildTester = () => {
+export const RenderingTesterChild = () => {
     const [count, setCount] = useState<number>(0);
 
     const onClickButton = () => {

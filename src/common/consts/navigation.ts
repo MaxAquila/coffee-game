@@ -2,6 +2,6 @@ export const navigation = {
     default: "*",
     frontPage: "/",
     gamePage: "/game",
-    testPage: "/test",
+    testerPage: "/tester",
     settingsPage: "/settings"
 };

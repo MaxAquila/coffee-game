@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ChildTester } from "@comp-tests/ChildTester";
+import { RenderingTesterChild } from "./RenderingTesterChild";
 
-export const ParentTester = () => {
+export const RenderingTesterParent = () => {
     const [count, setCount] = useState<number>(0);
 
     const onClickButton = () => {
@@ -12,9 +12,7 @@ export const ParentTester = () => {
         <button type="button" onClick={onClickButton}>
             Parent clicked: {count}
         </button>
-        <ChildTester/>
-        <ChildTester/>
-        <ChildTester/>
-        <ChildTester/>
+        <RenderingTesterChild/>
+        <RenderingTesterChild/>
     </>);
 };
