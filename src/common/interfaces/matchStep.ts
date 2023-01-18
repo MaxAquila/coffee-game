@@ -1,4 +1,4 @@
 export interface matchStep {
-    min: number;
-    max: number;
+    readonly min: number;
+    readonly max: number;
 };

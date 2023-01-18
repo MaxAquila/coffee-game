@@ -6,7 +6,9 @@ interface Props {
     onNextStepCallback: (newValue: number) => void;
 };
 
-export const GameNextStep = ({ range, onNextStepCallback }: Props) => {
+export const GameNextStep = (props: Props) => {
+    const { range, onNextStepCallback } = props;
+
     const [newValue, setNewValue] = useState<number>(Number(range.min) + 1);
 
     const isDisabled: boolean = range.min === range.max;
@@ -21,10 +23,6 @@ export const GameNextStep = ({ range, onNextStepCallback }: Props) => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        onClickNewValue();
-    };
-
-    const onClickNewValue = () => {
         if (isDisabled || newValue < rangeMatch.min || newValue > rangeMatch.max) {
             return;
         }
@@ -45,7 +43,7 @@ export const GameNextStep = ({ range, onNextStepCallback }: Props) => {
                 <form className="input-group" onSubmit={handleSubmit}>
                     <label className="input-group-text">New value:</label>
                     <input className="form-control" type="number" value={newValue} min={rangeMatch.min} max={rangeMatch.max} onChange={handleChangeNewValue} disabled={isDisabled} required />
-                    <button type="submit" className="btn btn-primary" onClick={onClickNewValue} disabled={isDisabled}>Insert</button>
+                    <button type="submit" className="btn btn-primary" disabled={isDisabled}>Insert</button>
                 </form>
             </div>
         </div>

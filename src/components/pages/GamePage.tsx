@@ -1,15 +1,12 @@
-import { useRef } from 'react';
-import { GameHeader } from '@comp-game/GameHeader';
-import { GameMatch, refGameMatch } from '@comp-game/GameMatch';
+import { GameMatch } from '@comp-game/GameMatch';
+import { PageHeader } from '@comp-pages/common/PageHeader';
 
 export const GamePage = () => {
-    const refOnClickNewGame = useRef<refGameMatch>(null);
-
     return (<>
         <div className="Board-game">
-            <GameHeader onClickNewGameCallback={() => refOnClickNewGame?.current?.refOnClickNewGame()} />
+            <PageHeader heading="Coffee Game"/>
             <main className="container">
-                <GameMatch ref={refOnClickNewGame}/>
+                <GameMatch/>
             </main>
         </div>
     </>);
