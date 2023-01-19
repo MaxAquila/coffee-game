@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { matchStep } from "@comm-interfaces/matchStep";
+import { GetMatchRange, NumRange } from "@comm-interfaces/numRange";
 
 interface Props {
-    range: matchStep;
+    range: NumRange;
     onNextStepCallback: (newValue: number) => void;
 };
 
@@ -12,10 +12,7 @@ export const GameNextStep = (props: Props) => {
     const [newValue, setNewValue] = useState<number>(Number(range.min) + 1);
 
     const isDisabled: boolean = range.min === range.max;
-    const rangeMatch: matchStep = {
-        min: isDisabled ? range.min : Number(range.min) + 1,
-        max: isDisabled ? range.max : Number(range.max) - 1
-    };
+    const rangeMatch: NumRange = GetMatchRange(range);
 
     const handleChangeNewValue = (e: any) => {
         setNewValue(Number(e.target.value));

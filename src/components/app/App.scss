@@ -2,6 +2,7 @@
 
 $background-primary-color: #282c34;
 $primary-color: white;
+$gameover-color: orangered;
 
 .App {
   background-color: $background-primary-color;
@@ -45,25 +46,133 @@ $primary-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding:2%;
+  padding: 2%;
 
   h1 {
     margin-bottom: 40px;
   }
-  
+
   img {
     height: 32pt;
     width: 32pt;
   }
 
   .GameOver {
-    color: red;
-    margin-bottom: 10px;
+    color: $gameover-color;
   }
 
   .btn-function {
     margin-left: 5px;
     margin-right: 5px;
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
+    ;
   }
+}
+
+.Status-bar {
+  $text-font-size: 16px;
+  $text-width: 44px;
+  $range-height: 16px;
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: $text-width;
+  padding-right: $text-width;
+  height: 60px;
+  position: relative;
+
+  .hint-text {
+    font-size: $text-font-size;
+    position: absolute;
+    width: $text-width;
+    overflow: hidden;
+  }
+
+  .limit {
+    $limit-color: silver;
+
+    background-color: $limit-color;
+    height: 4px;
+    position: inherit;
+    top: 50%;
+
+    .limit-text {
+      @extend .hint-text;
+      color: $limit-color;
+      bottom: -30px;
+    }
+
+    .limit-min {
+      @extend .limit-text;
+      left: calc(0% - $text-width);
+      text-align: right;
+    }
+
+    .limit-max {
+      @extend .limit-text;
+      right: calc(0% - $text-width);
+      text-align: left;
+    }
+  }
+
+  .range {
+    $range-color: turquoise;
+    $range-min-color: paleturquoise;
+
+    background-color: $range-color;
+    height: $range-height;
+    position: inherit;
+    top: calc(50% - 10px);
+
+    .range-text {
+      @extend .hint-text;
+      top: -24px;
+    }
+
+    .range-min {
+      @extend .range-text;
+      color: $range-min-color;
+      left: calc(0% - $text-width);
+      text-align: right;
+    }
+
+    .range-max {
+      @extend .range-text;
+      color: $range-color;
+      right: calc(0% - $text-width);
+      text-align: left;
+    }
+  }
+
+  .jolly {
+    $border-width: 2px;
+
+    background-color: $gameover-color;
+    border: $border-width solid yellow;
+    height: $range-height;
+    width: $range-height;
+    position: inherit;
+    top: calc(50% - 10px);
+    border-radius: 50%;
+
+    .jolly-text {
+      @extend .hint-text;
+      color: $gameover-color;
+      margin-top: -30px;
+      text-align: center;
+      left: calc(-50% - $text-font-size/2 - $border-width);
+    }
+  }
+
+  // @for $i from 0 through 100 {
+  //   .range-#{$i} {
+  //     @extend .range;
+  //     width: #{$i}#{"%"};
+  //   }
+  // }
+  // @for $i from 0 through 100 {
+  //   .range-offset-#{$i} {
+  //     left: #{$i}#{"%"};
+  //   }
+  // }
 }

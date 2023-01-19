@@ -1,3 +1,4 @@
+/**Routing values. */
 export const navigation = {
     default: "*",
     frontPage: "/",

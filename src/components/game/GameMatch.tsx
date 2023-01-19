@@ -1,18 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getRandomIntExclusive } from '@comm-helpers/mathHelper';
-import { matchStep } from '@comm-interfaces/matchStep';
+import { NumRange } from '@comm-interfaces/numRange';
+import { GameActions } from '@comp-game/GameActions';
 import { GameNextStep } from '@comp-game/GameNextStep';
 import { GameOver } from "@comp-game/GameOver";
+import { GameStatusBar } from '@comp-game/GameStatusBar';
 import { GameStepsList } from "@comp-game/GameStepsList";
-import { GameActions } from './GameActions';
 
-const range: matchStep = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
+const range: NumRange = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
 
 export const GameMatch = () => {
-    const [steps, setSteps] = useState<matchStep[]>([{ min: range.min, max: range.max }]);
+    const [steps, setSteps] = useState<NumRange[]>([{ min: range.min, max: range.max }]);
     const [jolly, setJolly] = useState<number>(getRandomIntExclusive(range.min, range.max));
 
-    const lastInsertedStep: matchStep = steps[0];
+    const lastInsertedStep: NumRange = steps[0];
     const isGameOver: boolean = lastInsertedStep.min === lastInsertedStep.max;
 
     const onClickNewGame = useCallback(() => {
@@ -21,7 +22,7 @@ export const GameMatch = () => {
     }, []);
 
     const onNextStep = (newValue: number) => {
-        const newStep: matchStep = (newValue === jolly)
+        const newStep: NumRange = (newValue === jolly)
             ? { min: jolly, max: jolly }
             : (newValue < jolly)
                 ? { min: newValue, max: lastInsertedStep.max }

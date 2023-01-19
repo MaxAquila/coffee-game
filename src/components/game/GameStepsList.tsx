@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { matchStep } from "@comm-interfaces/matchStep";
+import { NumRange } from "@comm-interfaces/numRange";
 
 interface Props {
-    steps: matchStep[];
+    steps: NumRange[];
 };
 
 export const GameStepsList = (props: Props) => {
