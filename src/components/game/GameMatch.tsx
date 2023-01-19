@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { lsConst } from "@comm-consts/lsConst";
 import { getRandomIntExclusive } from '@comm-helpers/mathHelper';
 import { useLocalStorage } from '@comm-hooks/useLocalStorage';
@@ -12,7 +12,7 @@ import { GameStepsList } from "@comp-game/GameStepsList";
 // const range: NumRange = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
 
 export const GameMatch = () => {
-    const [range, setRange] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value)
+    const [range] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value)
     const [steps, setSteps] = useState<NumRange[]>([{ min: range.min, max: range.max }]);
     const [jolly, setJolly] = useState<number>(getRandomIntExclusive(range.min, range.max));
 

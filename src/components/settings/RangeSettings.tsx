@@ -17,10 +17,10 @@ export const RangeSettings = () => {
     const handleChangeNewValue = (e: any) => {
         switch (e.target.name) {
             case "min":
-                setRange({min: Number(e.target.value), max: limit.max})
+                setRange({min: Number(e.target.value), max: range.max})
                 break;
             case "max":
-                setRange({min: limit.min, max: Number(e.target.value)})
+                setRange({min: range.min, max: Number(e.target.value)})
                 break;
         };
     };
