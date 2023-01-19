@@ -42,6 +42,7 @@ export const GameMatch = () => {
         <GameActions onClickNewGameCallback={onClickNewGame} />
         <GameNextStep range={lastInsertedStep} onNextStepCallback={onNextStep} />
         {isGameOver ? <GameOver /> : <></>}
+        <GameStatusBar limit={range} range={lastInsertedStep}/>
         <GameStepsList steps={steps} />
     </>);
 };
