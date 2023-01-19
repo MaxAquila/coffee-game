@@ -15,6 +15,7 @@ module.exports = {
       "@comm-consts": path.resolve(__dirname, "src/common/consts/"),
       "@comm-enums": path.resolve(__dirname, "src/common/enums/"),
       "@comm-helpers": path.resolve(__dirname, "src/common/helpers/"),
+      "@comm-hooks": path.resolve(__dirname, "src/common/hooks/"),
       "@comm-interfaces": path.resolve(__dirname, "src/common/interfaces/")
     },
   }

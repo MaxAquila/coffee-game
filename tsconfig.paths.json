@@ -14,6 +14,7 @@
             "@comm-consts/*" : ["./common/consts/*"],
             "@comm-enums/*" : ["./common/enums/*"],
             "@comm-helpers/*" : ["./common/helpers/*"],
+            "@comm-hooks/*" : ["./common/hooks/*"],
             "@comm-interfaces/*" : ["./common/interfaces/*"]
          }
     }

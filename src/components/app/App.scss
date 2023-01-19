@@ -67,6 +67,18 @@ $gameover-color: orangered;
     margin-bottom: 10px;
     ;
   }
+
+  .alert-ext {
+    margin: 10px 50px;
+    font-size: calc(10px + 0.5vmin);
+    height: 20px;
+
+    svg {
+      height: 16pt;
+      width: 16pt;
+      margin-top: 6px;
+    }
+  }
 }
 
 .Status-bar {

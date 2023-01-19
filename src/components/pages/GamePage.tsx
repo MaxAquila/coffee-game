@@ -4,9 +4,9 @@ import { PageHeader } from '@comp-pages/common/PageHeader';
 export const GamePage = () => {
     return (<>
         <div className="Board-game">
-            <PageHeader heading="Coffee Game"/>
+            <PageHeader heading="Coffee Game" />
             <main className="container">
-                <GameMatch/>
+                <GameMatch />
             </main>
         </div>
     </>);

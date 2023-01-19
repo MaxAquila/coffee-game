@@ -1,15 +1,13 @@
+import { stringConst } from '@comm-consts/stringConst';
 import { PageHeader } from '@comp-pages/common/PageHeader';
 import { RangeSettings } from '@comp-settings/RangeSettings';
-import { SettingsNavigator } from '@comp-settings/SettingsNavigator';
 
 export const SettingsPage = () => {
     return (<>
         <div className="Board-game">
-            <PageHeader heading="Coffee Game Settings">
-                <SettingsNavigator />
-            </PageHeader>
+            <PageHeader heading={stringConst.SETTINGS_PAGE} />
             <main className="container">
-                <RangeSettings/>
+                <RangeSettings />
             </main>
         </div>
     </>);
