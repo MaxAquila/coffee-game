@@ -7,4 +7,9 @@ export const lsConst = {
         key: "Range" as string,
         value: { min: 0, max: 1000 } as NumRange
     } as lsItem,
+
+    PLAYERS: {
+        key: "Players" as string,
+        value: ["Player1", "Player2"] as string[]
+    } as lsItem,
 };

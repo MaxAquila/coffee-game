@@ -68,6 +68,10 @@ $gameover-color: orangered;
     color: $gameover-color;
   }
 
+  .player-name {
+    color: paleturquoise;
+  }
+
   .btn-function {
     margin-left: 5px;
     margin-right: 5px;
@@ -85,6 +89,12 @@ $gameover-color: orangered;
       width: 16pt;
       margin-top: 6px;
     }
+  }
+
+  .padding-settings {
+    padding: 10px 50px;
+    border: solid turquoise;
+    border-width: 0px 1px 1px 1px;
   }
 }
 

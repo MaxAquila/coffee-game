@@ -9,5 +9,8 @@ export const stringConst = {
     GAME_PAGE: "Game Match" as const,
     SETTINGS_PAGE: "Settings" as const,
 
-    START_NEW_GAME: "🎮 Start a new game 🎮" as const
+    START_NEW_GAME: "🎮 Start a new game 🎮" as const,
+
+    SUCCESS_RANGE_SETTINGS: "Range settings updated!" as const,
+    SUCCESS_PLAYERS_SETTINGS: "Players settings updated!" as const
 };
