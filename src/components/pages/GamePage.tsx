@@ -1,13 +1,11 @@
+import { stringConst } from '@comm-consts/stringConst';
 import { GameMatch } from '@comp-game/GameMatch';
-import { PageHeader } from '@comp-pages/common/PageHeader';
+import { PageLayout } from '@comp-pages/common/PageLayout';
 
 export const GamePage = () => {
     return (<>
-        <div className="Board-game">
-            <PageHeader heading="Coffee Game" />
-            <main className="container">
-                <GameMatch />
-            </main>
-        </div>
+        <PageLayout heading={stringConst.GAME_PAGE}>
+            <GameMatch />
+        </PageLayout>
     </>);
 };

@@ -7,7 +7,7 @@ $gameover-color: orangered;
 .App {
   background-color: $background-primary-color;
   color: $primary-color;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   text-align: center;
   overflow: hidden;
 }
@@ -39,6 +39,13 @@ $gameover-color: orangered;
   to {
     transform: rotate(-45deg);
   }
+}
+
+.nav-margin {
+  margin-top: -5%;
+  margin-bottom: 10%;
+  border: solid turquoise;
+  border-width: 1px 0px 1px 0px;
 }
 
 .Board-game {

@@ -1,14 +1,11 @@
 import { stringConst } from '@comm-consts/stringConst';
-import { PageHeader } from '@comp-pages/common/PageHeader';
+import { PageLayout } from '@comp-pages/common/PageLayout';
 import { RangeSettings } from '@comp-settings/RangeSettings';
 
 export const SettingsPage = () => {
     return (<>
-        <div className="Board-game">
-            <PageHeader heading={stringConst.SETTINGS_PAGE} />
-            <main className="container">
-                <RangeSettings />
-            </main>
-        </div>
+        <PageLayout heading={stringConst.SETTINGS_PAGE}>
+            <RangeSettings />
+        </PageLayout>
     </>);
 };
