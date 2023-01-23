@@ -6,8 +6,8 @@ export function getRandom() {
 };
 
 /**Returns a random number between two values.
- * @param min - is the minimum number.
- * @param max - is the maximum number.
+ * @param min is the minimum number.
+ * @param max is the maximum number.
  */
 export function getRandomArbitrary(min: number, max: number) {
     return Math.random() * (max - min) + min;
@@ -15,8 +15,8 @@ export function getRandomArbitrary(min: number, max: number) {
 
 /**Returns a random integer between two values.
  * @remarks The minimum is inclusive and the maximum is exclusive.
- * @param min - is the minimum integer.
- * @param max - is the maximum integer.
+ * @param min is the minimum number.
+ * @param max is the maximum number.
  */
 export function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -24,10 +24,20 @@ export function getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min);
 };
 
+/**Returns a random integer between 0 and max value.
+ * @remarks The minimum is inclusive and the maximum is exclusive.
+ * @param max is the maximum number.
+ */
+export function getRandomIntFromZero(max: number) {
+    const min = 0;
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+};
+
 /**Returns a random integer between two values (inclusive).
  * @remarks The minimum is inclusive and the maximum is inclusive.
- * @param min - is the minimum integer.
- * @param max - is the maximum integer.
+ * @param min is the minimum number.
+ * @param max is the maximum number.
  */
 export function getRandomIntInclusive(min: number, max: number) {
     min = Math.ceil(min);
@@ -37,8 +47,8 @@ export function getRandomIntInclusive(min: number, max: number) {
 
 /**Returns a random integer between two values (exclusive).
  * @remarks The minimum is exclusive and the maximum is exclusive.
- * @param min - is the minimum integer.
- * @param max - is the maximum integer.
+ * @param min is the minimum number.
+ * @param max is the maximum number.
  */
 export function getRandomIntExclusive(min: number, max: number) {
     min = Math.ceil(min) + 1;

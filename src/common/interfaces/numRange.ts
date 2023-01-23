@@ -7,7 +7,7 @@ export interface NumRange {
 };
 
 /**Returns the range of values (inclusive) available to take the next step in the game.
- * @param limit - range of values (exclusive).
+ * @param limit range of values (exclusive).
  */
 export const GetMatchRange = (limit: NumRange) => {
     const isGameOver: boolean = limit.min === limit.max;

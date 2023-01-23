@@ -1,18 +1,15 @@
-import { useMemo } from "react";
-import { lsConst } from "@comm-consts/lsConst";
-import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { NumRange } from "@comm-interfaces/numRange";
 
 interface Props {
+    players: string[];
+    offset: number;
     steps: NumRange[];
 };
 
 export const GameNextPlayer = (props: Props) => {
-    const { steps } = props;
-
-    const [players] = useLocalStorage<string[]>(lsConst.PLAYERS.key, lsConst.PLAYERS.value);
+    const { players, offset, steps } = props;
 
     return (
-        <p>Next turn: <span className="player-name">{players[(steps.length - 1) % players.length]}</span></p>
+        <p>Next turn: <span className="player-name">{players[(steps.length - 1 + offset) % players.length]}</span></p>
     );
 };

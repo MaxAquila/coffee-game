@@ -32,7 +32,7 @@ export const SettingsPlayers = (props: PropsChild) => {
     const onRemovePlayer = (index: number) => {
         setPlayers(players.filter((p, i) => i !== index));
         onSuccessCallback?.();
-    }
+    };
 
     useEffect(() => {
         setStorage(players);
