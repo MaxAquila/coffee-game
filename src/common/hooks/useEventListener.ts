@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useRef } from 'react'
-import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect'
+// import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect'
 
 // MediaQueryList Event based useEventListener interface
 function useEventListener<K extends keyof MediaQueryListEventMap>(
@@ -56,9 +56,12 @@ function useEventListener<
   // Create a ref that stores handler
   const savedHandler = useRef(handler)
 
-  useIsomorphicLayoutEffect(() => {
+  useEffect(() => {
     savedHandler.current = handler
   }, [handler])
+  // useIsomorphicLayoutEffect(() => {
+  //   savedHandler.current = handler
+  // }, [handler])
 
   useEffect(() => {
     // Define the listening target

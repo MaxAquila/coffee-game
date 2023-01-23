@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react'
-import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect';
+// import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect';
 
 export function useInterval(callback: () => void, delay: number | null) {
     const savedCallback = useRef(callback);
 
     // Remember the latest callback if it changes.
-    useIsomorphicLayoutEffect(() => {
-        savedCallback.current = callback
-    }, [callback])
-    // useEffect(() => {
-    //     savedCallback.current = callback;
-    // }, [callback]);
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+    // useIsomorphicLayoutEffect(() => {
+    //     savedCallback.current = callback
+    // }, [callback])
 
     // Set up the interval.
     useEffect(() => {
