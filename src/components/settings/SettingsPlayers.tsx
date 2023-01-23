@@ -41,7 +41,7 @@ export const SettingsPlayers = (props: PropsChild) => {
     return (<>
         <form className="input-group" onSubmit={handleSubmit}>
             <label className="input-group-text">New player:</label>
-            <input ref={inputRef} className="form-control" defaultValue={""} disabled={idDisabled} />
+            <input ref={inputRef} className="form-control" defaultValue={""} disabled={idDisabled} maxLength={16} />
             <button type="submit" className="btn btn-primary" disabled={idDisabled}>Set</button>
         </form>
         <SettingsPlayersList players={players} onRemovePlayerCallback={onRemovePlayer} />
