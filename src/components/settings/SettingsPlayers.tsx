@@ -1,49 +1,72 @@
-import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 import { SettingsPlayersList } from "@comp-settings/SettingsPlayersList";
 
+
+/**Limit of players in list. */
 const limit: number = 8;
+
+
+/**Fields definition. */
+interface FormValues {
+    name: string;
+};
+/**Default values of the form. */
+const defaultForm: FormValues = {
+    name: ""
+}
+/**Form validation schema. */
+const validationSchema = yup.object().shape({
+    name: yup.string()
+        .required("Name is required")
+        .max(16, "Maximum 16 characters")
+});
+/**Form options definition. */
+const formOptions = {
+    defaultValues: defaultForm,
+    resolver: yupResolver(validationSchema)
+};
+
 
 export const SettingsPlayers = (props: PropsChild) => {
     const { onSuccessCallback } = props;
 
     const [storage, setStorage] = useLocalStorage<string[]>(lsConst.PLAYERS.key, lsConst.PLAYERS.value);
-    const [players, setPlayers] = useState<string[]>(storage);
-    const inputRef = useRef<HTMLInputElement>(null);
-    const idDisabled = players.length >= limit;
+    const { register, handleSubmit, reset, formState } = useForm<FormValues>(formOptions);
+    const { errors } = formState;
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        const newPlayer: string = inputRef?.current?.value || "";
+    const idDisabled = storage.length >= limit;
+
+    const onSubmit = handleSubmit((data) => {
+        const newPlayer: string = data.name;
         if (idDisabled || newPlayer === "") {
             return;
         }
-        const newList: string[] = [...players, newPlayer];
+        const newList: string[] = [...storage, newPlayer];
         const uniqueList: string[] = newList.filter((v, i, a) => a.indexOf(v) == i);
-        setPlayers(uniqueList);
-        if (inputRef.current) {
-            inputRef.current.value = "";
-        }
+        setStorage(uniqueList);
+        reset();
         onSuccessCallback?.();
-    };
+    });
 
     const onRemovePlayer = (index: number) => {
-        setPlayers(players.filter((p, i) => i !== index));
+        setStorage(storage.filter((p, i) => i !== index));
         onSuccessCallback?.();
     };
 
-    useEffect(() => {
-        setStorage(players);
-    }, [players]);
-
     return (<>
-        <form className="input-group" onSubmit={handleSubmit}>
-            <label className="input-group-text">New player:</label>
-            <input ref={inputRef} className="form-control" defaultValue={""} disabled={idDisabled} maxLength={16} />
-            <button type="submit" className="btn btn-primary" disabled={idDisabled}>Set</button>
+        <form className="form-group" onSubmit={onSubmit}>
+            <div className="input-group">
+                <label className="input-group-text">New player:</label>
+                <input {...register("name")} className={`form-control ${errors.name ? 'is-invalid' : ''}`} disabled={idDisabled} maxLength={20} />
+                <button type="submit" className="btn btn-primary" disabled={idDisabled}>Set</button>
+                <div className="invalid-feedback">{errors.name?.message}</div>
+            </div>
         </form>
-        <SettingsPlayersList players={players} onRemovePlayerCallback={onRemovePlayer} />
+        <SettingsPlayersList players={storage} onRemovePlayerCallback={onRemovePlayer} />
     </>);
 };

@@ -1,45 +1,69 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { NumRange } from "@comm-interfaces/numRange";
 import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 
+
+/**Absolute limits of the range. */
 const limit: NumRange = { min: 0, max: 99999 };
+
+
+interface FormValues {
+    min: number | undefined;
+    max: number | undefined;
+};
+/**Default values of the form. */
+const defaultForm: FormValues = {
+    min: 0,
+    max: 100
+}
+/**Form validation schema. */
+const validationSchema = yup.object().shape({
+    min: yup.number().typeError("Min must be a number")
+        .required("Value is required")
+        .min(limit.min, `Min is out of limit (${limit.min})`)
+        .max(limit.max, `Min is out of limit (${limit.max})`),
+        // .lessThan(yup.ref('max'), "Min must be less than Max"),
+    max: yup.number().typeError("Max must be a number")
+        .required("Value is required")
+        .min(limit.min, `Max is out of limit (${limit.min})`)
+        .max(limit.max, `Max is out of limit (${limit.max})`)
+        .moreThan(yup.ref('min'), "Max must be greater than Min")
+});
+/**Form options definition. */
+const formOptions = {
+    defaultValues: defaultForm,
+    resolver: yupResolver(validationSchema)
+};
+
 
 export const SettingsRange = (props: PropsChild) => {
     const { onSuccessCallback } = props;
 
     const [storage, setStorage] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
-    const [range, setRange] = useState<NumRange>(storage);
+    defaultForm.min = storage.min;
+    defaultForm.max = storage.max;
+    const { register, handleSubmit, formState } = useForm<FormValues>(formOptions);
+    const { errors } = formState;
 
-    const handleChange = (e: any) => {
-        switch (e.target.name) {
-            case "min":
-                setRange({ min: Number(e.target.value), max: range.max })
-                break;
-            case "max":
-                setRange({ min: range.min, max: Number(e.target.value) })
-                break;
-        };
-    };
-
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        if (range.min < limit.min || range.max > limit.max) {
-            return;
-        }
-        setStorage(range);
+    const onSubmit = handleSubmit((data) => {
+        setStorage({ min: data.min, max: data.max } as NumRange);
         onSuccessCallback?.();
-    };
+    });
 
     return (<>
-        <form className="input-group" onSubmit={handleSubmit}>
+        <form className="input-group" onSubmit={onSubmit}>
             <label className="input-group-text">Range:</label>
             <label className="input-group-text">Min</label>
-            <input name="min" className="form-control" type="number" value={range.min} min={limit.min} max={range.max} onChange={handleChange} />
+            <input {...register("min")} className={`form-control ${errors.min ? 'is-invalid' : ''}`} type="number" min={limit.min} max={limit.max} />
             <label className="input-group-text">Max</label>
-            <input name="max" className="form-control" type="number" value={range.max} min={range.min} max={limit.max} onChange={handleChange} />
+            <input {...register("max")} className={`form-control ${errors.max ? 'is-invalid' : ''}`} type="number" min={limit.min} max={limit.max} />
             <button type="submit" className="btn btn-primary">Set</button>
+            <div className="invalid-feedback">{errors.min?.message}</div>
+            <div className="invalid-feedback">{errors.max?.message}</div>
         </form>
     </>);
 };

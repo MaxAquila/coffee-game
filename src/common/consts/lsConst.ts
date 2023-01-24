@@ -5,7 +5,7 @@ import { NumRange } from "@comm-interfaces/numRange";
 export const lsConst = {
     RANGE: {
         key: "Range",
-        value: { min: 0, max: 1000 } as NumRange
+        value: { min: 0, max: 100 } as NumRange
     } as lsItem,
 
     PLAYERS: {
