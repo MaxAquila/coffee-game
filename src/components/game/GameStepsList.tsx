@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { NumRange } from "@comm-interfaces/numRange";
+import { GameStepsItem, GameStepsItemProps } from "@comp-game/GameStepItem";
 
 export interface GameStepsListProps {
     readonly players: string[];
@@ -12,8 +13,27 @@ export const GameStepsList = (props: GameStepsListProps) => {
 
     const listSteps: JSX.Element[] = useMemo(() => {
         return steps.map((s, i) => {
-            const playerName: string = i === steps.length - 1 ? "Start" : players[(steps.length - i - 2 + offset) % players.length];
-            return <li key={`${s.min}─${s.max}`}><span className="player-name">{`${playerName}: `}</span>{`${s.min} ─ ${s.max}`}</li>;
+            const isLastGameOver = i === 0 && s.min === s.max;
+            const isStartingStap = i === steps.length - 1;
+            const playerOffset = (steps.length - i - 2 + offset) % players.length;
+            const isNewRound = players.length > 1 && playerOffset === offset && i !== steps.length - 2;
+            const classDiv =
+                isLastGameOver ? "step-gameover" :
+                    isNewRound ? "step-round" :
+                        isStartingStap ? "step-start" : undefined;
+            const playerName: string = i === steps.length - 1 ? "Start" : players[playerOffset];
+
+            //#region props
+            const gameStepsItemProps: GameStepsItemProps = {
+                className: classDiv,
+                playerName: playerName,
+                isLastGameOver: isLastGameOver,
+                min: s.min,
+                max: s.max
+            };
+            //#endregion props
+
+            return <GameStepsItem {...gameStepsItemProps} />;
         });
     }, [steps]);
 
