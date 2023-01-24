@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { GetMatchRange, NumRange } from "@comm-interfaces/numRange";
 
-interface Props {
-    range: NumRange;
-    onNextStepCallback: (newValue: number) => void;
+export interface GameNextStepProps {
+    readonly range: NumRange;
+    readonly onNextStepCallback: (newValue: number) => void;
 };
 
-export const GameNextStep = (props: Props) => {
+export const GameNextStep = (props: GameNextStepProps) => {
     const { range, onNextStepCallback } = props;
 
     const [newValue, setNewValue] = useState<number>(Number(range.min) + 1);

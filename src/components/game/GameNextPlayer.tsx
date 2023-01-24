@@ -1,12 +1,12 @@
 import { NumRange } from "@comm-interfaces/numRange";
 
-interface Props {
-    players: string[];
-    offset: number;
-    steps: NumRange[];
+export interface GameNextPlayerProps {
+    readonly players: string[];
+    readonly offset: number;
+    readonly steps: NumRange[];
 };
 
-export const GameNextPlayer = (props: Props) => {
+export const GameNextPlayer = (props: GameNextPlayerProps) => {
     const { players, offset, steps } = props;
 
     return (

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { NumRange } from "@comm-interfaces/numRange";
 
-interface Props {
-    players: string[];
-    offset: number;
-    steps: NumRange[];
+export interface GameStepsListProps {
+    readonly players: string[];
+    readonly offset: number;
+    readonly steps: NumRange[];
 };
 
-export const GameStepsList = (props: Props) => {
+export const GameStepsList = (props: GameStepsListProps) => {
     const { players, offset, steps } = props;
 
     const listSteps: JSX.Element[] = useMemo(() => {

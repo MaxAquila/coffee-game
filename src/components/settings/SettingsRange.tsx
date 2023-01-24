@@ -11,6 +11,7 @@ import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 const limit: NumRange = { min: 0, max: 99999 };
 
 
+//#region Form
 interface FormValues {
     min: number | undefined;
     max: number | undefined;
@@ -38,11 +39,12 @@ const formOptions = {
     defaultValues: defaultForm,
     resolver: yupResolver(validationSchema)
 };
+//#endregion Form
 
 
 export const SettingsRange = (props: PropsChild) => {
     const { onSuccessCallback } = props;
-
+    
     const [storage, setStorage] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
     defaultForm.min = storage.min;
     defaultForm.max = storage.max;

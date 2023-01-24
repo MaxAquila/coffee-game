@@ -5,11 +5,11 @@ import { getRandomIntExclusive, getRandomIntFromZero } from '@comm-helpers/mathH
 import { useLocalStorage } from '@comm-hooks/useLocalStorage';
 import { NumRange } from '@comm-interfaces/numRange';
 import { GameActions } from '@comp-game/GameActions';
-import { GameNextPlayer } from '@comp-game/GameNextPlayer';
-import { GameNextStep } from '@comp-game/GameNextStep';
+import { GameNextPlayer, GameNextPlayerProps } from '@comp-game/GameNextPlayer';
+import { GameNextStep, GameNextStepProps } from '@comp-game/GameNextStep';
 import { GameOver } from "@comp-game/GameOver";
-import { GameStatusBar } from '@comp-game/GameStatusBar';
-import { GameStepsList } from "@comp-game/GameStepsList";
+import { GameStatusBar, GameStatusBarProps } from '@comp-game/GameStatusBar';
+import { GameStepsList, GameStepsListProps } from "@comp-game/GameStepsList";
 
 // const range: NumRange = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
 
@@ -28,10 +28,10 @@ export const GameMatch = () => {
     const isGameOver: boolean = lastInsertedStep.min === lastInsertedStep.max;
 
     const onClickNewGame = useCallback(() => {
-        if (rndStartingPlayer){
+        if (rndStartingPlayer) {
             setPlayersOffset(getRandomIntFromZero(players.length));
         }
-        if (rndPlayerOrder){
+        if (rndPlayerOrder) {
             setPlayers(shuffle(players));
         }
         setSteps([{ min: range.min, max: range.max }]);
@@ -55,11 +55,32 @@ export const GameMatch = () => {
         console.info(`Jolly: ${jolly}`);
     }, [jolly]);
 
+    //#region props
+    const gameNextStepProps: GameNextStepProps = {
+        range: lastInsertedStep,
+        onNextStepCallback: onNextStep
+    };
+    const gameNextPlayerProps: GameNextPlayerProps = {
+        players: players,
+        offset: playersOffset,
+        steps: steps
+    };
+    const gameStatusBarProps: GameStatusBarProps = {
+        limit: range,
+        range: lastInsertedStep
+    };
+    const gameStepsListProps: GameStepsListProps = {
+        players: players,
+        offset: playersOffset,
+        steps: steps
+    };
+    //#endregion props
+
     return (<>
         <GameActions onClickNewGameCallback={onClickNewGame} />
-        <GameNextStep range={lastInsertedStep} onNextStepCallback={onNextStep} />
-        {isGameOver ? <GameOver /> : <GameNextPlayer players={players} offset={playersOffset} steps={steps} />}
-        <GameStatusBar limit={range} range={lastInsertedStep} />
-        <GameStepsList players={players} offset={playersOffset} steps={steps} />
+        <GameNextStep {...gameNextStepProps} />
+        {isGameOver ? <GameOver /> : <GameNextPlayer {...gameNextPlayerProps} />}
+        <GameStatusBar {...gameStatusBarProps} />
+        <GameStepsList {...gameStepsListProps} />
     </>);
 };

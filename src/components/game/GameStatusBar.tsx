@@ -3,21 +3,32 @@ import { GetMatchRange, NumRange } from "@comm-interfaces/numRange";
 /**props of 
  * {@link GameStatusBar} and {@link StatusRange}
  */
-interface Props {
-    limit: NumRange;
-    range: NumRange;
+export interface GameStatusBarProps {
+    readonly limit: NumRange;
+    readonly range: NumRange;
 };
 
 /**Status bar of the game match. */
-export const GameStatusBar = (props: Props) => {
+export const GameStatusBar = (props: GameStatusBarProps) => {
     const { limit, range } = props;
 
     const rangeMatch: NumRange = GetMatchRange(range);
 
+    //#region props
+    const statusLimitProps: NumRange = {
+        min: limit.min,
+        max: limit.max
+    };
+    const statusRangeProps: GameStatusBarProps = {
+        limit: limit,
+        range: rangeMatch
+    };
+    //#endregion props
+
     return (
         <div className="Status-bar container">
-            <StatusLimit min={limit.min} max={limit.max} />
-            <StatusRange limit={limit} range={rangeMatch} />
+            <StatusLimit {...statusLimitProps} />
+            <StatusRange {...statusRangeProps} />
         </div>
     );
 };
@@ -35,7 +46,7 @@ const StatusLimit = (props: NumRange) => {
 };
 
 /**Component of the range. */
-const StatusRange = (props: Props) => {
+const StatusRange = (props: GameStatusBarProps) => {
     const { limit, range } = props;
 
     const isGameOver: boolean = range.min === range.max;

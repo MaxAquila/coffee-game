@@ -4,13 +4,14 @@ import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
-import { SettingsPlayersList } from "@comp-settings/SettingsPlayersList";
+import { SettingsPlayersList, SettingsPlayersListProps } from "@comp-settings/SettingsPlayersList";
 
 
 /**Limit of players in list. */
 const limit: number = 8;
 
 
+//#region Form
 /**Fields definition. */
 interface FormValues {
     name: string;
@@ -30,6 +31,7 @@ const formOptions = {
     defaultValues: defaultForm,
     resolver: yupResolver(validationSchema)
 };
+//#endregion Form
 
 
 export const SettingsPlayers = (props: PropsChild) => {
@@ -58,6 +60,13 @@ export const SettingsPlayers = (props: PropsChild) => {
         onSuccessCallback?.();
     };
 
+    //#region props
+    const settingsPlayersListProps: SettingsPlayersListProps = {
+        players: storage,
+        onRemovePlayerCallback: onRemovePlayer
+    };
+    //#endregion props
+
     return (<>
         <form className="form-group" onSubmit={onSubmit}>
             <div className="input-group">
@@ -67,6 +76,6 @@ export const SettingsPlayers = (props: PropsChild) => {
                 <div className="invalid-feedback">{errors.name?.message}</div>
             </div>
         </form>
-        <SettingsPlayersList players={storage} onRemovePlayerCallback={onRemovePlayer} />
+        <SettingsPlayersList {...settingsPlayersListProps} />
     </>);
 };

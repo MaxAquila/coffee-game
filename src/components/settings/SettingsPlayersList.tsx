@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 
-interface Props {
-    players: string[];
-    onRemovePlayerCallback: (index: number) => void;
+export interface SettingsPlayersListProps {
+    readonly players: string[];
+    readonly onRemovePlayerCallback: (index: number) => void;
 };
 
-export const SettingsPlayersList = (props: Props) => {
+export const SettingsPlayersList = (props: SettingsPlayersListProps) => {
     const { players, onRemovePlayerCallback } = props;
 
     const idDisabled = players.length === 1;
