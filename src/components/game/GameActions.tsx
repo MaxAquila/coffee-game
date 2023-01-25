@@ -1,7 +1,11 @@
 import { ActionNewGame } from "@comp-game/common/ActionNewGame";
 
+/**props of 
+ * {@link GameActions}
+ */
 interface Props {
-    onClickNewGameCallback: () => void;
+    /**@readonly Callback on starting new game. */
+    readonly onClickNewGameCallback: () => void;
 };
 
 export const GameActions = (props: Props) => {

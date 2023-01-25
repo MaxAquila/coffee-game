@@ -1,8 +1,12 @@
 import { memo } from "react";
 import { stringConst } from "@comm-consts/stringConst";
 
+/**props of 
+ * {@link ActionNewGame}
+ */
 interface Props {
-    onClickCallback: () => void;
+    /**@readonly Callback on starting new game. */
+    readonly onClickCallback: () => void;
 };
 
 const _ActionNewGame = (props: Props) => {

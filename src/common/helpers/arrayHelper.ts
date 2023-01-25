@@ -1,4 +1,3 @@
-
 /**Returns a shuffled array.
  * @param arr is the starting array.
  * @returns a new array.

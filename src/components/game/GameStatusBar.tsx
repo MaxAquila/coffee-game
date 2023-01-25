@@ -1,10 +1,22 @@
-import { GetMatchRange, NumRange } from "@comm-interfaces/numRange";
+import { GetBetRange, NumRange } from "@comm-interfaces/numRange";
 
 /**props of 
- * {@link GameStatusBar} and {@link StatusRange}
+ * {@link GameStatusBar}
  */
 export interface GameStatusBarProps {
+    /**@readonly Range limit of the game. */
     readonly limit: NumRange;
+    /**@readonly Betting range exclusive. */
+    readonly range: NumRange;
+};
+
+/**props of 
+ * {@link StatusRange}
+ */
+export interface StatusRangeProps {
+    /**@readonly Range limit of the game. */
+    readonly limit: NumRange;
+    /**@readonly Betting range inclusive. */
     readonly range: NumRange;
 };
 
@@ -12,14 +24,14 @@ export interface GameStatusBarProps {
 export const GameStatusBar = (props: GameStatusBarProps) => {
     const { limit, range } = props;
 
-    const rangeMatch: NumRange = GetMatchRange(range);
+    const rangeMatch: NumRange = GetBetRange(range);
 
     //#region props
     const statusLimitProps: NumRange = {
         min: limit.min,
         max: limit.max
     };
-    const statusRangeProps: GameStatusBarProps = {
+    const statusRangeProps: StatusRangeProps = {
         limit: limit,
         range: rangeMatch
     };
@@ -46,7 +58,7 @@ const StatusLimit = (props: NumRange) => {
 };
 
 /**Component of the range. */
-const StatusRange = (props: GameStatusBarProps) => {
+const StatusRange = (props: StatusRangeProps) => {
     const { limit, range } = props;
 
     const isGameOver: boolean = range.min === range.max;

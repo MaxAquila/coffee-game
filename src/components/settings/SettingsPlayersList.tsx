@@ -1,7 +1,12 @@
 import { useMemo } from "react";
 
+/**props of 
+ * {@link SettingsPlayersList}
+ */
 export interface SettingsPlayersListProps {
+    /**@readonly Players list with all their names. */
     readonly players: string[];
+    /**@readonly Callback to remove selected player. */
     readonly onRemovePlayerCallback: (index: number) => void;
 };
 

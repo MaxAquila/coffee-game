@@ -1,20 +1,26 @@
 import { useState } from "react";
 import { useInterval } from "@comm-hooks/useInterval";
 
-interface Props {
-    children: JSX.Element;
-    successMsg: string;
+/**props of 
+ * {@link SettingsSuccessAlert}
+ */
+interface SettingsSuccessAlertProps {
+    /**@readonly Child element of the component. */
+    readonly children: JSX.Element;
+    /**@readonly Message on success. */
+    readonly successMsg: string;
 };
 
 /**Props needed for the child component. */
 export interface PropsChild {
-    onSuccessCallback?: () => void;
+    /**@readonly Callback on success. */
+    readonly onSuccessCallback?: () => void;
 }
 
 /**Delay of {@link useInterval}. */
 const delay: number = 2000;
 
-export const SettingsSuccessAlert = (props: Props) => {
+export const SettingsSuccessAlert = (props: SettingsSuccessAlertProps) => {
     const { children, successMsg: alertMsg } = props;
 
     const [visible, setVisible] = useState<boolean>(false);

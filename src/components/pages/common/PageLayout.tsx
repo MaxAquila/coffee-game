@@ -1,18 +1,23 @@
 import { PageHeader } from "@comp-pages/common/PageHeader";
 
-interface Props {
-    children?: JSX.Element | JSX.Element[];
-    heading: string;
+/**props of 
+ * {@link PageLayout}
+ */
+interface PageLayoutProps {
+    /**@readonly Child elements of the component. */
+    readonly children?: JSX.Element | JSX.Element[];
+    /**@readonly Heading text of the page. */
+    readonly heading?: string;
 };
 
-export const PageLayout = (props: Props) => {
+export const PageLayout = (props: PageLayoutProps) => {
     const { children, heading } = props;    
     
     return (<>
         <div className="Board-game">
             <PageHeader />
             <main className="container">
-                {/* <h2>{heading}</h2> */}
+                {/* {heading ? <h2>{heading}</h2> : <></>} */}
                 {children}
             </main>
         </div>

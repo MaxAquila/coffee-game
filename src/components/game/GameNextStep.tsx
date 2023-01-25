@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import { GetMatchRange, NumRange } from "@comm-interfaces/numRange";
+import { GetBetRange, NumRange } from "@comm-interfaces/numRange";
 
+/**props of 
+ * {@link GameNextStep}
+ */
 export interface GameNextStepProps {
+    /**@readonly Betting range exclusive. */
     readonly range: NumRange;
+    /**@readonly Callback to add new step to current match. */
     readonly onNextStepCallback: (newValue: number) => void;
 };
 
@@ -12,7 +17,7 @@ export const GameNextStep = (props: GameNextStepProps) => {
     const [newValue, setNewValue] = useState<number>(Number(range.min) + 1);
 
     const isDisabled: boolean = range.min === range.max;
-    const rangeMatch: NumRange = GetMatchRange(range);
+    const rangeBet: NumRange = GetBetRange(range);
 
     const handleChangeNewValue = (e: any) => {
         setNewValue(Number(e.target.value));
@@ -20,7 +25,7 @@ export const GameNextStep = (props: GameNextStepProps) => {
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        if (isDisabled || newValue < rangeMatch.min || newValue > rangeMatch.max) {
+        if (isDisabled || newValue < rangeBet.min || newValue > rangeBet.max) {
             return;
         }
         onNextStepCallback(newValue);
@@ -28,10 +33,10 @@ export const GameNextStep = (props: GameNextStepProps) => {
 
     useEffect(() => {
         setNewValue(isDisabled
-            ? rangeMatch.min
+            ? rangeBet.min
             : (newValue === range.max)
-                ? rangeMatch.max
-                : rangeMatch.min)
+                ? rangeBet.max
+                : rangeBet.min)
     }, [range]);
 
     return (
@@ -39,7 +44,7 @@ export const GameNextStep = (props: GameNextStepProps) => {
             <div className="col-auto">
                 <form className="input-group" onSubmit={handleSubmit}>
                     <label className="input-group-text">New value:</label>
-                    <input className="form-control" type="number" value={newValue} min={rangeMatch.min} max={rangeMatch.max} onChange={handleChangeNewValue} disabled={isDisabled} required />
+                    <input className="form-control" type="number" value={newValue} min={rangeBet.min} max={rangeBet.max} onChange={handleChangeNewValue} disabled={isDisabled} required />
                     <button type="submit" className="btn btn-primary" disabled={isDisabled}>Insert</button>
                 </form>
             </div>

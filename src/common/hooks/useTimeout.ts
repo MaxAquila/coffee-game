@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 // import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect';
 
+/**Hook to set a timeout. */
 export function useTimeout(callback: () => any, delay: number) {
     const savedCallback = useRef(callback);
 

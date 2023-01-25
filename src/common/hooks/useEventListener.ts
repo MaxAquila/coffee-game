@@ -2,6 +2,7 @@ import { RefObject, useEffect, useRef } from 'react'
 // import useIsomorphicLayoutEffect from '@comm-hooks/useIsomorphicLayoutEffect'
 
 // MediaQueryList Event based useEventListener interface
+/**Hook to set an EventListener. */
 function useEventListener<K extends keyof MediaQueryListEventMap>(
   eventName: K,
   handler: (event: MediaQueryListEventMap[K]) => void,
@@ -10,6 +11,7 @@ function useEventListener<K extends keyof MediaQueryListEventMap>(
 ): void
 
 // Window Event based useEventListener interface
+/**Hook to set an EventListener. */
 function useEventListener<K extends keyof WindowEventMap>(
   eventName: K,
   handler: (event: WindowEventMap[K]) => void,
@@ -18,6 +20,7 @@ function useEventListener<K extends keyof WindowEventMap>(
 ): void
 
 // Element Event based useEventListener interface
+/**Hook to set an EventListener. */
 function useEventListener<
   K extends keyof HTMLElementEventMap,
   T extends HTMLElement = HTMLDivElement,
@@ -29,6 +32,7 @@ function useEventListener<
 ): void
 
 // Document Event based useEventListener interface
+/**Hook to set an EventListener. */
 function useEventListener<K extends keyof DocumentEventMap>(
   eventName: K,
   handler: (event: DocumentEventMap[K]) => void,
@@ -36,6 +40,7 @@ function useEventListener<K extends keyof DocumentEventMap>(
   options?: boolean | AddEventListenerOptions,
 ): void
 
+/**Hook to set an EventListener. */
 function useEventListener<
   KW extends keyof WindowEventMap,
   KH extends keyof HTMLElementEventMap,
@@ -79,6 +84,6 @@ function useEventListener<
       targetElement.removeEventListener(eventName, listener, options)
     }
   }, [eventName, element, options])
-}
+};
 
-export default useEventListener
+export default useEventListener;

@@ -14,6 +14,7 @@ const limit: number = 8;
 //#region Form
 /**Fields definition. */
 interface FormValues {
+    /**Name of the player. */
     name: string;
 };
 /**Default values of the form. */
@@ -49,7 +50,7 @@ export const SettingsPlayers = (props: PropsChild) => {
             return;
         }
         const newList: string[] = [...storage, newPlayer];
-        const uniqueList: string[] = newList.filter((v, i, a) => a.indexOf(v) == i);
+        const uniqueList: string[] = newList.filter((v, i, a) => a.indexOf(v) === i);
         setStorage(uniqueList);
         reset();
         onSuccessCallback?.();

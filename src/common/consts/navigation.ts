@@ -1,8 +1,8 @@
 /**Routing values. */
 export const navigation = {
-    default: "*",
-    frontPage: "/",
-    gamePage: "/game",
-    testerPage: "/tester",
-    settingsPage: "/settings"
+    default: "*" as const,
+    frontPage: "/" as const,
+    gamePage: "/game" as const,
+    testerPage: "/tester" as const,
+    settingsPage: "/settings" as const
 };

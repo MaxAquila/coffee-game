@@ -3,11 +3,15 @@ import { navigation } from '@comm-consts/navigation';
 import { stringConst } from '@comm-consts/stringConst';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 
-interface Props {
-    children?: JSX.Element | JSX.Element[];
+/**props of 
+ * {@link PageHeader}
+ */
+interface PageHeaderProps {
+    /**@readonly Child elements of the component. */
+    readonly children?: JSX.Element | JSX.Element[];
 };
 
-export const PageHeader = (props: Props) => {
+export const PageHeader = (props: PageHeaderProps) => {
     const { children } = props;
 
     const currentHref: string = window.location.href.substring(window.location.href.lastIndexOf('/'));

@@ -12,8 +12,11 @@ const limit: NumRange = { min: 0, max: 99999 };
 
 
 //#region Form
+/**Fields definition. */
 interface FormValues {
+    /**Min of the range. */
     min: number | undefined;
+    /**Max of the range. */
     max: number | undefined;
 };
 /**Default values of the form. */

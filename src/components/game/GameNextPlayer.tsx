@@ -1,8 +1,14 @@
 import { NumRange } from "@comm-interfaces/numRange";
 
+/**props of 
+ * {@link GameNextPlayer}
+ */
 export interface GameNextPlayerProps {
+    /**@readonly Players list with all their names. */
     readonly players: string[];
+    /**@readonly Index of the starting player. */
     readonly offset: number;
+    /**@readonly Steps list of current match. */
     readonly steps: NumRange[];
 };
 

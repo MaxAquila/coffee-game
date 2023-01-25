@@ -2,9 +2,15 @@ import { useMemo } from "react";
 import { NumRange } from "@comm-interfaces/numRange";
 import { GameStepsItem, GameStepsItemProps } from "@comp-game/GameStepItem";
 
+/**props of 
+ * {@link GameStepsList}
+ */
 export interface GameStepsListProps {
+    /**@readonly Players list with all their names. */
     readonly players: string[];
+    /**@readonly Index of the starting player. */
     readonly offset: number;
+    /**@readonly Steps list of current match. */
     readonly steps: NumRange[];
 };
 
