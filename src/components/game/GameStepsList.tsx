@@ -33,7 +33,7 @@ export const GameStepsList = (props: GameStepsListProps) => {
             };
             //#endregion props
 
-            return <GameStepsItem {...gameStepsItemProps} />;
+            return <GameStepsItem key={`${s.min}─${s.max}`} {...gameStepsItemProps} />;
         });
     }, [steps]);
 
