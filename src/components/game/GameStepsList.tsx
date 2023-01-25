@@ -13,20 +13,18 @@ export const GameStepsList = (props: GameStepsListProps) => {
 
     const listSteps: JSX.Element[] = useMemo(() => {
         return steps.map((s, i) => {
-            const isLastGameOver = i === 0 && s.min === s.max;
-            const isStartingStap = i === steps.length - 1;
-            const playerOffset = (steps.length - i - 2 + offset) % players.length;
-            const isNewRound = players.length > 1 && playerOffset === offset && i !== steps.length - 2;
-            const classDiv =
-                isLastGameOver ? "step-gameover" :
-                    isNewRound ? "step-round" :
-                        isStartingStap ? "step-start" : undefined;
-            const playerName: string = i === steps.length - 1 ? "Start" : players[playerOffset];
+            const isLastGameOver: boolean = i === 0 && s.min === s.max;
+            const isStartingStap: boolean = i === steps.length - 1;
+            const playerOffset: number = (steps.length - i - 2 + offset) % players.length;
+            const isNewRound: boolean = players.length > 1 && playerOffset === offset && i !== steps.length - 2;
 
             //#region props
             const gameStepsItemProps: GameStepsItemProps = {
-                className: classDiv,
-                playerName: playerName,
+                className:
+                    isLastGameOver ? "step-gameover" :
+                        isNewRound ? "step-round" :
+                            isStartingStap ? "step-start" : undefined,
+                playerName: i === steps.length - 1 ? "Start" : players[playerOffset],
                 isLastGameOver: isLastGameOver,
                 min: s.min,
                 max: s.max

@@ -8,7 +8,7 @@ export interface SettingsPlayersListProps {
 export const SettingsPlayersList = (props: SettingsPlayersListProps) => {
     const { players, onRemovePlayerCallback } = props;
 
-    const idDisabled = players.length === 1;
+    const idDisabled: boolean = players.length === 1;
 
     const listPlayers: JSX.Element[] = useMemo(() => {
         return players.map((p, i) =>

@@ -41,7 +41,7 @@ export const SettingsPlayers = (props: PropsChild) => {
     const { register, handleSubmit, reset, formState } = useForm<FormValues>(formOptions);
     const { errors } = formState;
 
-    const idDisabled = storage.length >= limit;
+    const idDisabled: boolean = storage.length >= limit;
 
     const onSubmit = handleSubmit((data) => {
         const newPlayer: string = data.name;
