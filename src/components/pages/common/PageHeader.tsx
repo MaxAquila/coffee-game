@@ -1,7 +1,7 @@
 import logo from '@assets/cup512.png';
 import { navigation } from '@comm-consts/navigation';
 import { stringConst } from '@comm-consts/stringConst';
-import { isDisabled } from '@testing-library/user-event/dist/utils';
+import { Link, useLocation } from 'react-router-dom';
 
 /**props of 
  * {@link PageHeader}
@@ -14,7 +14,8 @@ interface PageHeaderProps {
 export const PageHeader = (props: PageHeaderProps) => {
     const { children } = props;
 
-    const currentHref: string = window.location.href.substring(window.location.href.lastIndexOf('/'));
+    // const currentHref: string = window.location.href.substring(window.location.href.lastIndexOf('/'));
+    const location = useLocation();
 
     return (
         <header>
@@ -34,10 +35,12 @@ export const PageHeader = (props: PageHeaderProps) => {
                             <div className="navbar-collapse" id="navbarNav">
                                 <ul className="navbar-nav">
                                     <li className="nav-item">
-                                        <a className={`nav-link ${currentHref === navigation.gamePage && "active"} ${currentHref === navigation.gamePage && "disabled"}`} href={navigation.gamePage}>{stringConst.NAV_GAME_PAGE}</a>
+                                        {/* <a className={`nav-link ${currentHref === navigation.gamePage && "active"} ${currentHref === navigation.gamePage && "disabled"}`} href={navigation.gamePage}>{stringConst.NAV_GAME_PAGE}</a> */}
+                                        <Link to={navigation.gamePage} className={`nav-link ${location.pathname === navigation.gamePage && "active"} ${location.pathname === navigation.gamePage && "disabled"}`}>{stringConst.NAV_GAME_PAGE}</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <a className={`nav-link ${currentHref === navigation.settingsPage && "active"} ${currentHref === navigation.settingsPage && "disabled"}`} href={navigation.settingsPage}>{stringConst.NAV_SETTINGS_PAGE}</a>
+                                        {/* <a className={`nav-link ${currentHref === navigation.settingsPage && "active"} ${currentHref === navigation.settingsPage && "disabled"}`} href={navigation.settingsPage}>{stringConst.NAV_SETTINGS_PAGE}</a> */}
+                                        <Link to={navigation.settingsPage} className={`nav-link ${location.pathname === navigation.settingsPage && "active"} ${location.pathname === navigation.settingsPage && "disabled"}`}>{stringConst.NAV_SETTINGS_PAGE}</Link>
                                     </li>
                                 </ul>
                             </div>
