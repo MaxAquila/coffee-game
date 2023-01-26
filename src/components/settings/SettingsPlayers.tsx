@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
+import { validationConst } from "@comm-consts/validationConst";
+import { stringInterpolation } from "@comm-helpers/stringHelper";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 import { SettingsPlayersList, SettingsPlayersListProps } from "@comp-settings/SettingsPlayersList";
@@ -24,8 +26,8 @@ const defaultForm: FormValues = {
 /**Form validation schema. */
 const validationSchema = yup.object().shape({
     name: yup.string()
-        .required("Name is required")
-        .max(16, "Maximum 16 characters")
+        .required(stringInterpolation(validationConst.REQUIRED, "Name"))
+        .max(16, stringInterpolation(validationConst.REQUIRED, 16))
 });
 /**Form options definition. */
 const formOptions = {

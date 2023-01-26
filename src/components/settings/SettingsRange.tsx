@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
+import { validationConst } from "@comm-consts/validationConst";
+import { stringInterpolation } from "@comm-helpers/stringHelper";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { NumRange } from "@comm-interfaces/numRange";
 import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
@@ -26,16 +28,16 @@ const defaultForm: FormValues = {
 }
 /**Form validation schema. */
 const validationSchema = yup.object().shape({
-    min: yup.number().typeError("Min must be a number")
-        .required("Value is required")
-        .min(limit.min, `Min is out of limit (${limit.min})`)
-        .max(limit.max, `Min is out of limit (${limit.max})`),
+    min: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+        .required(stringInterpolation(validationConst.REQUIRED, "Min"))
+        .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.min]))
+        .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.max])),
         // .lessThan(yup.ref('max'), "Min must be less than Max"),
-    max: yup.number().typeError("Max must be a number")
-        .required("Value is required")
-        .min(limit.min, `Max is out of limit (${limit.min})`)
-        .max(limit.max, `Max is out of limit (${limit.max})`)
-        .moreThan(yup.ref('min'), "Max must be greater than Min")
+    max: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+        .required(stringInterpolation(validationConst.REQUIRED, "Max"))
+        .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.min]))
+        .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.max]))
+        .moreThan(yup.ref("min"), stringInterpolation(validationConst.MORETHAN, ["Max", "Min"]))
 });
 /**Form options definition. */
 const formOptions = {
@@ -47,7 +49,7 @@ const formOptions = {
 
 export const SettingsRange = (props: PropsChild) => {
     const { onSuccessCallback } = props;
-    
+
     const [storage, setStorage] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
     defaultForm.min = storage.min;
     defaultForm.max = storage.max;
