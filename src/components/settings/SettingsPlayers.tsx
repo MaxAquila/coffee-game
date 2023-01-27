@@ -13,36 +13,25 @@ import { SettingsPlayersList, SettingsPlayersListProps } from "@comp-settings/Se
 const limit: number = 8;
 
 
-//#region Form
 /**Fields definition. */
-interface FormValues {
+interface FormFields {
     /**Name of the player. */
     name: string;
 };
-/**Default values of the form. */
-const defaultForm: FormValues = {
-    name: ""
-}
-/**Form validation schema. */
-const validationSchema = yup.object().shape({
-    name: yup.string()
-        .required(stringInterpolation(validationConst.REQUIRED, "Name"))
-        .max(16, stringInterpolation(validationConst.REQUIRED, 16))
-});
-/**Form options definition. */
-const formOptions = {
-    defaultValues: defaultForm,
-    resolver: yupResolver(validationSchema)
-};
-//#endregion Form
 
 
 export const SettingsPlayers = (props: PropsChild) => {
     const { onSuccessCallback } = props;
 
     const [storage, setStorage] = useLocalStorage<string[]>(lsConst.PLAYERS.key, lsConst.PLAYERS.value);
-    const { register, handleSubmit, reset, formState } = useForm<FormValues>(formOptions);
-    const { errors } = formState;
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormFields>({
+        defaultValues: { name: "" },
+        resolver: yupResolver(yup.object().shape({
+            name: yup.string()
+                .required(stringInterpolation(validationConst.REQUIRED, "Name"))
+                .max(16, stringInterpolation(validationConst.REQUIRED, 16))
+        }))
+    });
 
     const idDisabled: boolean = storage.length >= limit;
 

@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { lsConst } from "@comm-consts/lsConst";
 import { validationConst } from "@comm-consts/validationConst";
+import { objectCompare } from "@comm-helpers/objectHelper";
 import { stringInterpolation } from "@comm-helpers/stringHelper";
 import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { NumRange } from "@comm-interfaces/numRange";
@@ -13,50 +14,28 @@ import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 const limit: NumRange = { min: 0, max: 99999 };
 
 
-//#region Form
-/**Fields definition. */
-interface FormValues {
-    /**Min of the range. */
-    min: number | undefined;
-    /**Max of the range. */
-    max: number | undefined;
-};
-/**Default values of the form. */
-const defaultForm: FormValues = {
-    min: 0,
-    max: 100
-}
-/**Form validation schema. */
-const validationSchema = yup.object().shape({
-    min: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
-        .required(stringInterpolation(validationConst.REQUIRED, "Min"))
-        .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.min]))
-        .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.max])),
-        // .lessThan(yup.ref('max'), "Min must be less than Max"),
-    max: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
-        .required(stringInterpolation(validationConst.REQUIRED, "Max"))
-        .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.min]))
-        .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.max]))
-        .moreThan(yup.ref("min"), stringInterpolation(validationConst.MORETHAN, ["Max", "Min"]))
-});
-/**Form options definition. */
-const formOptions = {
-    defaultValues: defaultForm,
-    resolver: yupResolver(validationSchema)
-};
-//#endregion Form
-
-
 export const SettingsRange = (props: PropsChild) => {
     const { onSuccessCallback } = props;
 
     const [storage, setStorage] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
-    defaultForm.min = storage.min;
-    defaultForm.max = storage.max;
-    const { register, handleSubmit, formState } = useForm<FormValues>(formOptions);
-    const { errors } = formState;
+    const { register, handleSubmit, formState: { errors } } = useForm<NumRange>({
+        defaultValues: { min: storage.min, max: storage.max } as NumRange,
+        mode: "onChange",
+        resolver: yupResolver(yup.object().shape({
+            min: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+                .required(stringInterpolation(validationConst.REQUIRED, "Min"))
+                .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.min]))
+                .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.max])),
+            max: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+                .required(stringInterpolation(validationConst.REQUIRED, "Max"))
+                .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.min]))
+                .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.max]))
+                .moreThan(yup.ref("min"), stringInterpolation(validationConst.MORETHAN, ["Max", "Min"]))
+        }))
+    });
 
     const onSubmit = handleSubmit((data) => {
+        if (objectCompare(data, storage)) return;
         setStorage({ min: data.min, max: data.max } as NumRange);
         onSuccessCallback?.();
     });

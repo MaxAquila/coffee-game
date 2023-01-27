@@ -48,6 +48,10 @@ $gameover-color: orangered;
   border-width: 1px 0px 1px 0px;
 }
 
+.invalid-feedback{
+  font-size: 10pt;
+}
+
 .Board-game {
   min-height: 100vh;
   display: flex;
