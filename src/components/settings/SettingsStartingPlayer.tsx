@@ -1,24 +1,38 @@
+import { useState } from "react";
 import { lsConst } from "@comm-consts/lsConst";
-import { useLocalStorage } from "@comm-hooks/useLocalStorage";
-import { PropsChild } from "@comp-settings/common/SettingsSuccessAlert";
 import { stringConst } from "@comm-consts/stringConst";
+import { getRandom } from "@comm-helpers/mathHelper";
+import { useLocalStorage } from "@comm-hooks/useLocalStorage";
+import { enumAlert } from "@comm-enums/enumAlert";
+import { alertDefault, AlertManager, AlertManagerProps } from "@comp-settings/common/AlertManager";
 
-export const SettingsStartingPlayer = (props: PropsChild) => {
-    const { onSuccessCallback } = props;
 
+export const SettingsStartingPlayer = () => {
+
+    const [alertProps, setAlertProps] = useState<AlertManagerProps>(alertDefault);
     const [storage, setStorage] = useLocalStorage<boolean>(lsConst.RND_STARTINGPLAYER.key, lsConst.RND_STARTINGPLAYER.value);
 
     const onChangeChecked = (e: any) => {
         setStorage(e.target.checked)
-        onSuccessCallback?.();
+        setAlertProps({
+            type: enumAlert.Success,
+            message: stringConst.SUCCESS_STARTINGPLAYER_SETTINGS,
+            callID: getRandom()
+        });
     };
 
     return (<>
-        <form className="input-group d-flex flex-column">
-            <div className="form-check form-switch">
-                <input name="rndStarting" className="form-check-input" type="checkbox" checked={storage} onChange={onChangeChecked} />
-                <label className="form-check-label">{stringConst.STARTINGPLAYER_SETTINGS}</label>
+        <div className="row d-flex justify-content-center pt-3">
+            <div className="col col-lg-6">
+                {/* <form className="input-group d-flex flex-column"> */}
+                <form className="input-group">
+                    <div className="form-check form-switch">
+                        <input name="rndStarting" className="form-check-input" type="checkbox" checked={storage} onChange={onChangeChecked} />
+                        <label className="form-check-label">{stringConst.STARTINGPLAYER_SETTINGS}</label>
+                    </div>
+                </form>
+                <AlertManager {...alertProps} />
             </div>
-        </form>
+        </div>
     </>);
 };

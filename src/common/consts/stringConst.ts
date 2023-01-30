@@ -15,7 +15,12 @@ export const stringConst = {
     PLAYERORDER_SETTINGS: "Random player order" as const,
 
     SUCCESS_RANGE_SETTINGS: "Range settings updated!" as const,
+    WARNING_RANGE_SETTINGS: "No changes to save!" as const,
+
     SUCCESS_PLAYERS_SETTINGS: "Players settings updated!" as const,
+    WARNING_PLAYERS_SETTINGS: "No changes to save!" as const,
+    DANGER_PLAYERS_SETTINGS: "Player already exists!" as const,
+
     SUCCESS_STARTINGPLAYER_SETTINGS: "Starting player settings updated!" as const,
     SUCCESS_PLAYERORDER_SETTINGS: "Player order settings updated!" as const
 };
