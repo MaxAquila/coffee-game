@@ -1,10 +1,10 @@
 import { arrayCompare } from "@comm-helpers/arrayHelper";
 
 /**
- * 
- * @param obj1 
- * @param obj2 
- * @returns 
+ * Compare two objects.
+ * @param obj1 first object to compare.
+ * @param obj2 second object to compare.
+ * @returns `true` if the comparison matches.
  */
 export function objectCompare(obj1: any, obj2: any): boolean {
     const propsObj1 = Object.keys(obj1);
