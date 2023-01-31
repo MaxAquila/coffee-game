@@ -47,7 +47,7 @@ export const SettingsRange = () => {
         setAlert(enumAlert.Success);
     });
 
-    const setAlert = (type: enumAlert) => {
+    const setAlert = (type: enumAlert): void => {
         let message: string;
         switch (type) {
             case enumAlert.Success:

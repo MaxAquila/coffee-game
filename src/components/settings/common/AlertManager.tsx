@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { delayConst } from "@comm-consts/delayConst";
+import { getRandom } from "@comm-helpers/mathHelper";
 import { useInterval } from "@comm-hooks/useInterval";
 import { enumAlert } from "@comm-enums/enumAlert";
 import { AlertDanger } from "@comp-settings/common/AlertDanger";
@@ -14,6 +15,10 @@ import { AlertWarning } from "@comp-settings/common/AlertWarning";
 export interface AlertManagerProps extends AlertManagerChildProps {
     /**@readonly Alert type. */
     readonly type: enumAlert;
+    /**
+     * @readonly ID to avoid multiple calls.
+     * Use {@link getRandom()}.
+     */
     readonly callID: number;
 };
 
@@ -30,7 +35,7 @@ export interface AlertManagerChildProps {
 export const alertDefault: AlertManagerProps = {
     type: enumAlert.None,
     message: "",
-    callID: -1
+    callID: 1 //1 because of getRandom().
 };
 
 
