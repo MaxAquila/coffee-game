@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { lsConst } from "@comm-consts/lsConst";
+import { useDispatch, useSelector } from "react-redux";
 import { stringConst } from "@comm-consts/stringConst";
 import { validationConst } from "@comm-consts/validationConst";
 import { enumAlert } from "@comm-enums/enumAlert";
 import { getRandom } from "@comm-helpers/mathHelper";
 import { objectCompare } from "@comm-helpers/objectHelper";
 import { stringInterpolation } from "@comm-helpers/stringHelper";
-import { useLocalStorage } from "@comm-hooks/useLocalStorage";
 import { NumRange } from "@comm-interfaces/numRange";
+import { IRootState } from "@comm-redux/store";
+import { setRange, setRangeMax } from "@comm-redux/slices/range.slice";
 import { alertDefault, AlertManager, AlertManagerProps } from "@comp-settings/common/AlertManager";
-import { useState } from "react";
 
 
 /**Absolute limits of the range. */
@@ -20,10 +21,11 @@ const limit: NumRange = { min: 0, max: 99999 };
 
 export const SettingsRange = () => {
 
+    const range: NumRange = useSelector<IRootState, NumRange>(state => state.range);
+    const dispatch = useDispatch();
     const [alertProps, setAlertProps] = useState<AlertManagerProps>(alertDefault);
-    const [storage, setStorage] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
     const { register, handleSubmit, formState: { errors } } = useForm<NumRange>({
-        defaultValues: { min: storage.min, max: storage.max } as NumRange,
+        defaultValues: { min: range.min, max: range.max } as NumRange,
         mode: "onChange",
         resolver: yupResolver(yup.object().shape({
             min: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
@@ -39,11 +41,11 @@ export const SettingsRange = () => {
     });
 
     const onSubmit = handleSubmit((data) => {
-        if (objectCompare(data, storage)) {
+        if (objectCompare(data, range)) {
             setAlert(enumAlert.Warning);
             return;
         };
-        setStorage({ min: data.min, max: data.max } as NumRange);
+        dispatch(setRange({ min: data.min, max: data.max }));
         setAlert(enumAlert.Success);
     });
 

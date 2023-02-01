@@ -1,26 +1,29 @@
 import { useCallback, useEffect, useState } from 'react';
-import { lsConst } from "@comm-consts/lsConst";
+import { useSelector } from 'react-redux';
 import { shuffle } from '@comm-helpers/arrayHelper';
 import { getRandomIntExclusive, getRandomIntFromZero } from '@comm-helpers/mathHelper';
-import { useLocalStorage } from '@comm-hooks/useLocalStorage';
 import { NumRange } from '@comm-interfaces/numRange';
 import { GameActions } from '@comp-game/GameActions';
 import { GameNextPlayer, GameNextPlayerProps } from '@comp-game/GameNextPlayer';
 import { GameNextStep, GameNextStepProps } from '@comp-game/GameNextStep';
 import { GameOver } from "@comp-game/GameOver";
+import { IRootState } from '@comm-redux/store';
 import { GameStatusBar, GameStatusBarProps } from '@comp-game/GameStatusBar';
 import { GameStepsList, GameStepsListProps } from "@comp-game/GameStepsList";
 
+
 // const range: NumRange = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
 
-export const GameMatch = () => {
-    const [range] = useLocalStorage<NumRange>(lsConst.RANGE.key, lsConst.RANGE.value);
-    const [playersStorage] = useLocalStorage<string[]>(lsConst.PLAYERS.key, lsConst.PLAYERS.value);
-    const [rndStartingPlayer] = useLocalStorage<boolean>(lsConst.RND_STARTINGPLAYER.key, lsConst.RND_STARTINGPLAYER.value);
-    const [rndPlayerOrder] = useLocalStorage<boolean>(lsConst.RND_PLAYERORDER.key, lsConst.RND_PLAYERORDER.value);
 
-    const [playersOffset, setPlayersOffset] = useState<number>(rndStartingPlayer ? getRandomIntFromZero(playersStorage.length) : 0);
-    const [players, setPlayers] = useState<string[]>(rndPlayerOrder ? shuffle(playersStorage) : [...playersStorage]);
+export const GameMatch = () => {
+    
+    const range: NumRange = useSelector<IRootState, NumRange>(state => state.range);
+    const rndStartingPlayer: boolean = useSelector<IRootState, boolean>(state => state.players.randomStart);
+    const rndPlayerOrder: boolean = useSelector<IRootState, boolean>(state => state.players.randomOrder);
+    const playersStore: string[] = useSelector<IRootState, string[]>(state => state.players.names);
+
+    const [players, setPlayers] = useState<string[]>(rndPlayerOrder ? shuffle(playersStore) : [...playersStore]);
+    const [playersOffset, setPlayersOffset] = useState<number>(rndStartingPlayer ? getRandomIntFromZero(playersStore.length) : 0);
     const [steps, setSteps] = useState<NumRange[]>([{ min: range.min, max: range.max }]);
     const [jolly, setJolly] = useState<number>(getRandomIntExclusive(range.min, range.max));
 

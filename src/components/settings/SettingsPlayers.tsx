@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { lsConst } from "@comm-consts/lsConst";
+import { useDispatch, useSelector } from "react-redux";
 import { stringConst } from "@comm-consts/stringConst";
 import { validationConst } from "@comm-consts/validationConst";
 import { enumAlert } from "@comm-enums/enumAlert";
 import { getRandom } from "@comm-helpers/mathHelper";
 import { stringInterpolation } from "@comm-helpers/stringHelper";
-import { useLocalStorage } from "@comm-hooks/useLocalStorage";
+import { IRootState } from "@comm-redux/store";
+import { addPlayer, delPlayer } from "@comm-redux/slices/players.slice";
 import { SettingsPlayersList, SettingsPlayersListProps } from "@comp-settings/SettingsPlayersList";
 import { alertDefault, AlertManager, AlertManagerProps } from "@comp-settings/common/AlertManager";
-import { arrayCompare } from "@comm-helpers/arrayHelper";
 
 
 /**Limit of players in list. */
@@ -27,8 +27,9 @@ interface FormFields {
 
 export const SettingsPlayers = () => {
 
+    const players: string[] = useSelector<IRootState, string[]>(state => state.players.names);
+    const dispatch = useDispatch();
     const [alertProps, setAlertProps] = useState<AlertManagerProps>(alertDefault);
-    const [storage, setStorage] = useLocalStorage<string[]>(lsConst.PLAYERS.key, lsConst.PLAYERS.value);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormFields>({
         defaultValues: { name: "" },
         resolver: yupResolver(yup.object().shape({
@@ -38,7 +39,7 @@ export const SettingsPlayers = () => {
         }))
     });
 
-    const idDisabled: boolean = storage.length >= limit;
+    const idDisabled: boolean = players.length >= limit;
 
     const onSubmit = handleSubmit((data) => {
         const newPlayer: string = data.name;
@@ -46,19 +47,17 @@ export const SettingsPlayers = () => {
             setAlert(enumAlert.Warning);
             return;
         }
-        const newList: string[] = [...storage, newPlayer];
-        const uniqueList: string[] = newList.filter((v, i, a) => a.indexOf(v) === i);
-        if (arrayCompare(storage, uniqueList)) {
+        if (players.includes(newPlayer)) {
             setAlert(enumAlert.Danger);
             return;
         }
-        setStorage(uniqueList);
+        dispatch(addPlayer(newPlayer));
         reset();
         setAlert(enumAlert.Success);
     });
 
     const onRemovePlayer = (index: number) => {
-        setStorage(storage.filter((p, i) => i !== index));
+        dispatch(delPlayer(players[index]));
         setAlert(enumAlert.Success);
     };
 
@@ -89,7 +88,7 @@ export const SettingsPlayers = () => {
 
     //#region props
     const settingsPlayersListProps: SettingsPlayersListProps = {
-        players: storage,
+        players: players,
         onRemovePlayerCallback: onRemovePlayer
     };
     //#endregion props
