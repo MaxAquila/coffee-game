@@ -1,5 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { validationConst } from "@comm-consts/validationConst";
+import { stringInterpolation } from "@comm-helpers/stringHelper";
 import { GetBetRange, NumRange } from "@comm-interfaces/numRange";
+
+
+/**Fields definition. */
+interface FormFields {
+    /**New value to bet. */
+    value: number;
+};
 
 /**props of 
  * {@link GameNextStep}
@@ -11,41 +23,51 @@ export interface GameNextStepProps {
     readonly onNextStepCallback: (newValue: number) => void;
 };
 
+
 export const GameNextStep = (props: GameNextStepProps) => {
     const { range, onNextStepCallback } = props;
-
-    const [newValue, setNewValue] = useState<number>(Number(range.min) + 1);
 
     const isDisabled: boolean = range.min === range.max;
     const rangeBet: NumRange = GetBetRange(range);
 
-    const handleChangeNewValue = (e: any) => {
-        setNewValue(Number(e.target.value));
-    };
+    const { register, handleSubmit, reset, getValues, formState: { errors } } = useForm<FormFields>({
+        defaultValues: { value: Number(range.min) + 1 },
+        mode: "onChange",
+        resolver: yupResolver(yup.object().shape({
+            value: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "New value"))
+                .required(stringInterpolation(validationConst.REQUIRED, "New value"))
+                .min(rangeBet.min, stringInterpolation(validationConst.OUTOFLIMIT, ["New value", rangeBet.min]))
+                .max(rangeBet.max, stringInterpolation(validationConst.OUTOFLIMIT, ["New value", rangeBet.max]))
+        }))
+    });
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        if (isDisabled || newValue < rangeBet.min || newValue > rangeBet.max) {
+    const onSubmit = handleSubmit((data) => {
+        if (isDisabled || data.value < rangeBet.min || data.value > rangeBet.max) {
             return;
         }
-        onNextStepCallback(newValue);
-    };
+        onNextStepCallback(data.value);
+    });
 
     useEffect(() => {
-        setNewValue(isDisabled
-            ? rangeBet.min
-            : (newValue === range.max)
-                ? rangeBet.max
-                : rangeBet.min)
+        reset({
+            value: isDisabled
+                ? rangeBet.min
+                : (Number(getValues("value")) === range.max)
+                    ? rangeBet.max
+                    : rangeBet.min
+        });
     }, [range]);
 
     return (
         <div className="row d-flex justify-content-center">
-            <div className="col-auto">
-                <form className="input-group" onSubmit={handleSubmit}>
-                    <label className="input-group-text">New value:</label>
-                    <input className="form-control" type="number" value={newValue} min={rangeBet.min} max={rangeBet.max} onChange={handleChangeNewValue} disabled={isDisabled} required />
-                    <button type="submit" className="btn btn-primary" disabled={isDisabled}>Insert</button>
+            <div className="col-10 col-sm-6 col-lg-4 col-xxl-3">
+                <form className="form-group" onSubmit={onSubmit}>
+                    <div className="input-group">
+                        <label className="input-group-text">New value:</label>
+                        <input {...register("value")} className={`form-control ${errors.value ? 'is-invalid' : ''}`} type="number" min={rangeBet.min} max={rangeBet.max} disabled={isDisabled} required />
+                        <button type="submit" className="btn btn-primary" disabled={isDisabled}>Insert</button>
+                        <div className="invalid-feedback">{errors.value?.message}</div>
+                    </div>
                 </form>
             </div>
         </div>
