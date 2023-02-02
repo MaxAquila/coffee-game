@@ -41,6 +41,25 @@ $gameover-color: orangered;
   }
 }
 
+.loading-icon {
+  height: 32px;
+  width: 32px;
+  pointer-events: none;
+}
+@keyframes loading-icon-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .loading-icon {
+    animation: loading-icon-spin infinite 2s;
+  }
+}
+
 .nav-margin {
   margin-top: -5%;
   margin-bottom: 10%;
