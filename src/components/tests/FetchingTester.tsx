@@ -8,6 +8,7 @@ export const FetchingTester = () => {
 
     const onClickButton = async (id: number | undefined = undefined) => {
         fetcher.fetch({
+            method: "get", //default
             url: `https://api.guildwars2.com/v2/colors/${id ? id : getRandomIntInclusive(1, 2000)}`
         });
     };
@@ -17,10 +18,10 @@ export const FetchingTester = () => {
             Fetch random
         </button>
         <button type="button" onClick={() => onClickButton(1)}>
-            ID=1
+            Fetch ID=1
         </button>
         <button type="button" onClick={() => onClickButton(2000)}>
-            ID=2000
+            Fetch ID=2000
         </button>
         {
             fetcher.loading
