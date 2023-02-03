@@ -6,7 +6,7 @@ import { GamePage } from '@comp-pages/GamePage';
 import { SettingsPage } from '@comp-pages/SettingsPage';
 import { TesterPage } from '@comp-pages/TesterPage';
 
-export function App() {  
+export function App() {
   console.info(`TesterPage [hidden]: ${navigation.testerPage}`);
 
   return (
@@ -14,7 +14,11 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route path={navigation.frontPage} element={<FrontPage />} />
-          <Route path={navigation.gamePage} element={<GamePage />} />
+          <Route path={navigation.gamePage} element={<GamePage />}>
+            <Route path=":j?" element={<GamePage />}>
+              <Route path=":m/:M" element={<GamePage />} />
+            </Route>
+          </Route>
           <Route path={navigation.settingsPage} element={<SettingsPage />} />
           <Route path={navigation.testerPage} element={<TesterPage />} />
           <Route path={navigation.default} element={<Navigate to={navigation.frontPage} replace />} />
