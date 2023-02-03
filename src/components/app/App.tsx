@@ -4,6 +4,7 @@ import { navigation } from '@comm-consts/navigation';
 import { FrontPage } from '@comp-pages/FrontPage';
 import { GamePage } from '@comp-pages/GamePage';
 import { SettingsPage } from '@comp-pages/SettingsPage';
+import { HowToPage } from '@comp-pages/HowToPage';
 import { TesterPage } from '@comp-pages/TesterPage';
 
 export function App() {
@@ -20,6 +21,7 @@ export function App() {
             </Route>
           </Route>
           <Route path={navigation.settingsPage} element={<SettingsPage />} />
+          <Route path={navigation.howtoPage} element={<HowToPage />} />
           <Route path={navigation.testerPage} element={<TesterPage />} />
           <Route path={navigation.default} element={<Navigate to={navigation.frontPage} replace />} />
         </Routes>

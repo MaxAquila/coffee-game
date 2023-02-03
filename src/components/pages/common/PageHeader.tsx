@@ -39,6 +39,9 @@ export const PageHeader = (props: PageHeaderProps) => {
                                     {/* <a className={`nav-link ${currentHref === navigation.settingsPage && "active"} ${currentHref === navigation.settingsPage && "disabled"}`} href={navigation.settingsPage}>{stringConst.NAV_SETTINGS_PAGE}</a> */}
                                     <Link to={navigation.settingsPage} className={`nav-link ${location.pathname.startsWith(navigation.settingsPage) && "active"} ${location.pathname.startsWith(navigation.settingsPage) && "disabled"}`}>{stringConst.NAV_SETTINGS_PAGE}</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link to={navigation.howtoPage} className={`nav-link ${location.pathname.startsWith(navigation.howtoPage) && "active"} ${location.pathname.startsWith(navigation.howtoPage) && "disabled"}`}>{stringConst.NAV_HOWTO_PAGE}</Link>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -4,5 +4,6 @@ export const navigation = {
     frontPage: "/" as const,
     gamePage: "/game" as const,
     testerPage: "/tester" as const,
-    settingsPage: "/settings" as const
+    settingsPage: "/settings" as const,
+    howtoPage: "/howto" as const
 };

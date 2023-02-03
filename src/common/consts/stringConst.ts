@@ -5,9 +5,11 @@ export const stringConst = {
     
     NAV_GAME_PAGE: "🎮 Game" as const,
     NAV_SETTINGS_PAGE: "⚙️ Settings" as const,
+    NAV_HOWTO_PAGE: "💡 How To" as const,
 
     GAME_PAGE: "Game Match" as const,
     SETTINGS_PAGE: "Settings" as const,
+    HOWTO_PAGE: "How To" as const,
 
     START_NEW_GAME: "🎮 Start a new game 🎮" as const,
     
