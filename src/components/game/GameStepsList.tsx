@@ -1,13 +1,14 @@
 import { useMemo } from "react";
 import { NumRange } from "@comm-interfaces/numRange";
 import { GameStepsItem, GameStepsItemProps } from "@comp-game/GameStepItem";
+import { Player } from "@comm-models/player";
 
 /**props of 
  * {@link GameStepsList}
  */
 export interface GameStepsListProps {
     /**@readonly Players list with all their names. */
-    readonly players: string[];
+    readonly players: Player[];
     /**@readonly Index of the starting player. */
     readonly offset: number;
     /**@readonly Steps list of current match. */
@@ -30,7 +31,7 @@ export const GameStepsList = (props: GameStepsListProps) => {
                     isLastGameOver ? "step-gameover" :
                         isNewRound ? "step-round" :
                             isStartingStap ? "step-start" : undefined,
-                playerName: i === steps.length - 1 ? "Start" : players[playerOffset],
+                player: i === steps.length - 1 ? "Start" : players[playerOffset],
                 isLastGameOver: isLastGameOver,
                 min: s.min,
                 max: s.max

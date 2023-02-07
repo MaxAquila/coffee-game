@@ -17,6 +17,7 @@ module.exports = {
       "@comm-helpers": path.resolve(__dirname, "src/common/helpers/"),
       "@comm-hooks": path.resolve(__dirname, "src/common/hooks/"),
       "@comm-interfaces": path.resolve(__dirname, "src/common/interfaces/"),
+      "@comm-models": path.resolve(__dirname, "src/common/models/"),
       "@comm-redux": path.resolve(__dirname, "src/common/redux/")
     },
   }

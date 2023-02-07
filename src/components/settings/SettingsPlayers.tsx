@@ -1,3 +1,4 @@
+import loadingIcon from '@assets/loading32px.png';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +13,9 @@ import { IRootState } from "@comm-redux/store";
 import { addPlayer, delPlayer } from "@comm-redux/slices/players.slice";
 import { SettingsPlayersList, SettingsPlayersListProps } from "@comp-settings/SettingsPlayersList";
 import { alertDefault, AlertManager, AlertManagerProps } from "@comp-settings/common/AlertManager";
+import { playersAsyncThunks } from "@comm-redux/asyncThunks/players.thunk";
+import { Player } from "@comm-models/player";
+import { simulateDelay } from '@comm-consts/delayConst';
 
 
 /**Limit of players in list. */
@@ -27,8 +31,9 @@ interface FormFields {
 
 export const SettingsPlayers = () => {
 
-    const players: string[] = useSelector<IRootState, string[]>(state => state.players.names);
-    const dispatch = useDispatch();
+    const players: Player[] = useSelector<IRootState, Player[]>(state => state.players.list);
+    const dispatch = useDispatch<any>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [alertProps, setAlertProps] = useState<AlertManagerProps>(alertDefault);
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormFields>({
         defaultValues: { name: "" },
@@ -39,25 +44,32 @@ export const SettingsPlayers = () => {
         }))
     });
 
-    const idDisabled: boolean = players.length >= limit;
+    const idDisabled: boolean = players.length >= limit || isLoading;
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(async (data) => {
         const newPlayer: string = data.name;
         if (idDisabled || newPlayer === "") {
             setAlert(enumAlert.Warning);
             return;
         }
-        if (players.includes(newPlayer)) {
+        if (players.some(p => p.name === newPlayer)) {
             setAlert(enumAlert.Danger);
             return;
         }
-        dispatch(addPlayer(newPlayer));
+        // dispatch(addPlayer(newPlayer));
+        setIsLoading(true);
+        setAlert(enumAlert.Info);
+        await simulateDelay(2000);
+        if (!(await dispatch(playersAsyncThunks.getRandomNickname(newPlayer))).payload) {
+            await dispatch(addPlayer(newPlayer));
+        }
         reset();
+        setIsLoading(false);
         setAlert(enumAlert.Success);
     });
 
     const onRemovePlayer = (index: number) => {
-        dispatch(delPlayer(players[index]));
+        dispatch(delPlayer(players[index].name));
         setAlert(enumAlert.Success);
     };
 
@@ -66,6 +78,9 @@ export const SettingsPlayers = () => {
         switch (type) {
             case enumAlert.Danger:
                 message = stringConst.DANGER_PLAYERS_SETTINGS;
+                break;
+            case enumAlert.Info:
+                message = stringConst.INFO_PLAYERS_SETTINGS;
                 break;
             case enumAlert.Success:
                 message = stringConst.SUCCESS_PLAYERS_SETTINGS;
@@ -100,7 +115,10 @@ export const SettingsPlayers = () => {
                     <div className="input-group">
                         <label className="input-group-text">New player:</label>
                         <input {...register("name")} className={`form-control ${errors.name ? 'is-invalid' : ''}`} disabled={idDisabled} maxLength={20} />
-                        <button type="submit" className="btn btn-primary" disabled={idDisabled}>Set</button>
+                        {isLoading
+                            ? <img src={loadingIcon} className="loading-icon" alt="loading" />
+                            : <button type="submit" className="btn btn-primary" disabled={idDisabled}>Set</button>
+                        }
                         <div className="invalid-feedback">{errors.name?.message}</div>
                     </div>
                 </form>

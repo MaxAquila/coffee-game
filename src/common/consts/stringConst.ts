@@ -22,6 +22,7 @@ export const stringConst = {
     SUCCESS_PLAYERS_SETTINGS: "Players settings updated!" as const,
     WARNING_PLAYERS_SETTINGS: "No changes to save!" as const,
     DANGER_PLAYERS_SETTINGS: "Player already exists!" as const,
+    INFO_PLAYERS_SETTINGS: "Get random nickname..." as const,
 
     SUCCESS_STARTINGPLAYER_SETTINGS: "Starting player settings updated!" as const,
     SUCCESS_PLAYERORDER_SETTINGS: "Player order settings updated!" as const

@@ -139,6 +139,18 @@ $gameover-color: orangered;
     border: solid turquoise;
     border-width: 0px 1px 1px 1px;
   }
+
+  .fontlittle {
+    font-size: calc(10px + 0.5vmin);
+  }
+  .nickname {
+    @extend .fontlittle;
+    color: turquoise;
+  }
+  .battlename {
+    @extend .fontlittle;
+    color: lightseagreen;
+  }
 }
 
 .Status-bar {

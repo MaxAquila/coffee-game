@@ -1,3 +1,4 @@
+import { Player } from "@comm-models/player";
 import { useMemo } from "react";
 
 /**props of 
@@ -5,7 +6,7 @@ import { useMemo } from "react";
  */
 export interface SettingsPlayersListProps {
     /**@readonly Players list with all their names. */
-    readonly players: string[];
+    readonly players: Player[];
     /**@readonly Callback to remove selected player. */
     readonly onRemovePlayerCallback: (index: number) => void;
 };
@@ -17,9 +18,16 @@ export const SettingsPlayersList = (props: SettingsPlayersListProps) => {
 
     const listPlayers: JSX.Element[] = useMemo(() => {
         return players.map((p, i) =>
-            <div key={p} className="row">
+            <div key={p.name} className="row">
                 <div className="col-2"><button title={`Remove '${p}'`} className="btn btn-light" onClick={() => onRemovePlayerCallback(i)} disabled={idDisabled}>❌</button></div>
-                <div className="col-10">{p}</div>
+                <div className="col-10">
+                    <div className="row">
+                        {p.name}
+                    </div>
+                    <div className="row nickname">
+                        {p.nickname}
+                    </div>
+                </div>
             </div>
         );
     }, [players]);

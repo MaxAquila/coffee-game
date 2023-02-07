@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { redirect, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { navigation } from '@comm-consts/navigation';
 import { shuffle } from '@comm-helpers/arrayHelper';
 import { getRandomIntExclusive, getRandomIntFromZero } from '@comm-helpers/mathHelper';
@@ -12,6 +12,7 @@ import { GameOver } from "@comp-game/GameOver";
 import { IRootState } from '@comm-redux/store';
 import { GameStatusBar, GameStatusBarProps } from '@comp-game/GameStatusBar';
 import { GameStepsList, GameStepsListProps } from "@comp-game/GameStepsList";
+import { Player } from '@comm-models/player';
 
 
 // const range: NumRange = { min: 0, max: 1000 } as const;//with interface 'as const' doesn't work, but readonly in the interface works
@@ -26,9 +27,9 @@ export const GameMatch = () => {
     const rangeStore: NumRange = useSelector<IRootState, NumRange>(state => state.range);
     const rndStartingPlayer: boolean = useSelector<IRootState, boolean>(state => state.players.randomStart);
     const rndPlayerOrder: boolean = useSelector<IRootState, boolean>(state => state.players.randomOrder);
-    const playersStore: string[] = useSelector<IRootState, string[]>(state => state.players.names);
+    const playersStore: Player[] = useSelector<IRootState, Player[]>(state => state.players.list);
 
-    const [players, setPlayers] = useState<string[]>(rndPlayerOrder ? shuffle(playersStore) : [...playersStore]);
+    const [players, setPlayers] = useState<Player[]>(rndPlayerOrder ? shuffle(playersStore) : [...playersStore]);
     const [playersOffset, setPlayersOffset] = useState<number>(rndStartingPlayer ? getRandomIntFromZero(playersStore.length) : 0);
     const [range, setRange] = useState<NumRange>((m && M && Number(M) > Number(m) + 2) ? { min: Number(m), max: Number(M) } : rangeStore);
     const [steps, setSteps] = useState<NumRange[]>([{ min: range.min, max: range.max }]);
