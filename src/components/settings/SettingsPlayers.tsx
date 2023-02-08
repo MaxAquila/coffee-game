@@ -60,9 +60,19 @@ export const SettingsPlayers = () => {
         setIsLoading(true);
         setAlert(enumAlert.Info);
         await simulateDelay(2000);
-        if (!(await dispatch(playersAsyncThunks.getRandomNickname(newPlayer))).payload) {
-            await dispatch(addPlayer(newPlayer));
+        var fetchedNickname = await dispatch(playersAsyncThunks.getRandomNickname(newPlayer));
+        if (fetchedNickname.error) {
+            setAlertProps({
+                type: enumAlert.Danger,
+                message: fetchedNickname.error?.message ?? "Unable to get a random nickname.",
+                callID: getRandom()
+            });
+            setIsLoading(false);
+            return;
         }
+        // if (!(await dispatch(playersAsyncThunks.getRandomNickname(newPlayer))).payload) {
+        //     await dispatch(addPlayer(newPlayer));
+        // }
         reset();
         setIsLoading(false);
         setAlert(enumAlert.Success);
