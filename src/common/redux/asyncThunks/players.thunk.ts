@@ -7,7 +7,8 @@ const getRandomNickname = createAsyncThunk(`players/getRandomNickname`,
         try {
             const response = await axios({
                 method: "get", //default
-                url: `https://api.guildwars2.com/v2/minis/${getRandomIntInclusive(1, 883)}`
+                url: `https://api.guildwars2.com/v2/minis/${getRandomIntInclusive(1, 883)}`,
+                timeout: 10000
                 // url: `https://randommer.io/api/Name`,
                 // headers: {
                 //     "X-Api-Key": "adab1730e19f4365b9672dd744addb31" //not valid
