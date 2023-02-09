@@ -60,7 +60,7 @@ export const SettingsPlayers = () => {
         setIsLoading(true);
         setAlert(enumAlert.Info);
         await simulateDelay(2000);
-        var fetchedNickname = await dispatch(playersAsyncThunks.getRandomNickname(newPlayer));
+        const fetchedNickname = await dispatch(playersAsyncThunks.getRandomNickname(newPlayer));
         if (fetchedNickname.error) {
             setAlertProps({
                 type: enumAlert.Danger,

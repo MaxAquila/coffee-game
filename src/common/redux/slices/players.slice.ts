@@ -64,7 +64,8 @@ export const playersSlice = createSlice({
             state.list = [...state.list, { name: action.payload[0], nickname: action.payload[1] }];
         });
         builder.addCase(playersAsyncThunks.getRandomNickname.rejected, (state: PlayerState, { error, meta }) => {
-            console.error(error, meta);
+            console.error("Error", error);
+            console.error("Meta", meta);
         });
     }
 })
