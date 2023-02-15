@@ -34,7 +34,7 @@ export const GameNextStep = (props: GameNextStepProps) => {
         defaultValues: { value: Number(range.min) + 1 },
         mode: "onChange",
         resolver: yupResolver(yup.object().shape({
-            value: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "New value"))
+            value: yup.number().integer().typeError(stringInterpolation(validationConst.INTEGER, "New value"))
                 .required(stringInterpolation(validationConst.REQUIRED, "New value"))
                 .min(rangeBet.min, stringInterpolation(validationConst.OUTOFLIMIT, ["New value", rangeBet.min]))
                 .max(rangeBet.max, stringInterpolation(validationConst.OUTOFLIMIT, ["New value", rangeBet.max]))

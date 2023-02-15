@@ -28,11 +28,11 @@ export const SettingsRange = () => {
         defaultValues: { min: range.min, max: range.max } as NumRange,
         mode: "onChange",
         resolver: yupResolver(yup.object().shape({
-            min: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+            min: yup.number().integer().typeError(stringInterpolation(validationConst.INTEGER, "Min"))
                 .required(stringInterpolation(validationConst.REQUIRED, "Min"))
                 .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.min]))
                 .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Min", limit.max])),
-            max: yup.number().typeError(stringInterpolation(validationConst.NUMBER, "Min"))
+            max: yup.number().integer().typeError(stringInterpolation(validationConst.INTEGER, "Min"))
                 .required(stringInterpolation(validationConst.REQUIRED, "Max"))
                 .min(limit.min, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.min]))
                 .max(limit.max, stringInterpolation(validationConst.OUTOFLIMIT, ["Max", limit.max]))
