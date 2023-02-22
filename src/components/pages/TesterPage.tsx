@@ -1,5 +1,6 @@
-import { FetchingTester } from "@comp-tests/FetchingTester";
-import { RenderingTesterParent } from "@comp-tests/RenderingTesterParent";
+import { FetchingTester } from "@comp-tester/FetchingTester";
+import { RenderingTesterParent } from "@comp-tester/RenderingTesterParent";
+import { VariableTester } from "@comp-tester/VariableTester";
 
 export const TesterPage = () => {
     const styleTest = {
@@ -15,6 +16,9 @@ export const TesterPage = () => {
         </div>
         <div style={styleTest}>
             <FetchingTester />
+        </div>
+        <div style={styleTest}>
+            <VariableTester />
         </div>
         <div style={styleTest}>
         </div>
